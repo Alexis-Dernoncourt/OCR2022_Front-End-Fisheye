@@ -30,40 +30,45 @@ h1 {
     margin-top: 100px;
 }
 
-.photographer_section article {
+.home-card-link-photographer {
     justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    cursor: pointer;
+    text-decoration: none;
+    color: unset;
+}
+.home-card-link-photographer:hover img {
+    box-shadow: 0 0 25px rgb(80, 80, 80);
 }
 
-.photographer_section article img {
+.home-card-link-photographer img {
     height: 200px;
     width: 200px;
     border-radius: 50%;
     -o-object-fit: cover;
     object-fit: cover;
+    transition: box-shadow 0.15s ease-in;
 }
 
-.photographer_section article h2 {
+.home-card-link-photographer h2 {
     color: #d3573c;
     font-size: 2.3em;
     margin-bottom: 2px;
 }
 
-.photographer_section article p:first-of-type {
+.home-card-link-photographer p:first-of-type {
     color: #901c1c;
     font-size: 0.85em;
     margin: 0 0 5px;
 }
-.photographer_section article p {
+.home-card-link-photographer p {
     font-size: 0.65em;
     margin-top: 0;
 }
 
-.photographer_section article p.price-info {
+.home-card-link-photographer p.price-info {
     font-size: 0.7em;
     margin-top: 0;
     color: #757575;

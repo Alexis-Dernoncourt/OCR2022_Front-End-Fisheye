@@ -1,5 +1,4 @@
 async function getPhotographers() {
-    const LOCAL_URL = 'http://127.0.0.1:5500';
     try {
         const data = await fetch(`${LOCAL_URL}/data/photographers.json`);
         console.log(data);
