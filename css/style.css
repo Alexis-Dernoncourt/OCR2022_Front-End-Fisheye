@@ -1,8 +1,12 @@
 @import url('photographer.css');
+:root {
+    font-size: 62.5%;
+}
 
 body {
     font-family: 'DM Sans', sans-serif;
     margin: 0;
+    font-size: 1.6rem;
 }
 
 header {
@@ -13,9 +17,14 @@ header {
     height: 90px;
 }
 
+header h1 {
+    font-weight: 400;
+}
+
 h1 {
     color: #901c1c;
     margin-right: 100px;
+    font-size: 3.6rem;
 }
 
 .logo {
@@ -54,23 +63,23 @@ h1 {
 
 .home-card-link-photographer h2 {
     color: #d3573c;
-    font-size: 2.3em;
+    font-size: 3.6rem;
     margin-bottom: 2px;
     text-align: center;
 }
 
 .home-card-link-photographer p:first-of-type {
     color: #901c1c;
-    font-size: 0.85em;
+    font-size: 1.3rem;
     margin: 0 0 5px;
 }
 .home-card-link-photographer p {
-    font-size: 0.65em;
+    font-size: 1rem;
     margin-top: 0;
 }
 
 .home-card-link-photographer p.price-info {
-    font-size: 0.7em;
+    font-size: 0.9rem;
     margin-top: 0;
     color: #757575;
 }

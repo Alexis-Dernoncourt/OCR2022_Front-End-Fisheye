@@ -3,9 +3,49 @@
 }
 
 .photograph-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
     background-color: #fafafa;
-    height: 300px;
+    min-height: 300px;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
     margin: 0 100px;
+    padding: 20px 50px;
+}
+
+.photograph-header-infos {
+    min-width: 380px;
+}
+.photograph-header-infos h2 {
+    color: #d3573c;
+    font-size: 6.4rem;
+    margin: 0 0 2px;
+    /* text-align: center; */
+}
+.photograph-header-infos p:first-of-type {
+    color: #d3573c;
+    font-size: 2.4rem;
+    line-height: 3.1rem;
+    margin: 0 0 2px;
+}
+.photograph-header-infos p:last-of-type {
+    color: #525252;
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+    margin: 0;
+}
+
+.photograph-header img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: box-shadow 0.15s ease-in;
 }
 
 .contact_button {
@@ -31,6 +71,7 @@
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+    z-index: 10;
 }
 
 .modal header {
