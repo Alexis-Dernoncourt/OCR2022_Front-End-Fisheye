@@ -1,10 +1,9 @@
-@import url("photographer.css");
+@import url('photographer.css');
 
 body {
-    font-family: "DM Sans", sans-serif;
+    font-family: 'DM Sans', sans-serif;
     margin: 0;
 }
-
 
 header {
     display: flex;
@@ -15,7 +14,7 @@ header {
 }
 
 h1 {
-    color: #901C1C;
+    color: #901c1c;
     margin-right: 100px;
 }
 
@@ -26,25 +25,83 @@ h1 {
 
 .photographer_section {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 70px;
     margin-top: 100px;
 }
 
-.photographer_section article {
+.home-card-link-photographer {
     justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-decoration: none;
+    color: unset;
+}
+.home-card-link-photographer:hover img {
+    box-shadow: 0 0 25px rgb(80, 80, 80);
 }
 
-.photographer_section article h2 {
-    color: #D3573C;
-    font-size: 36px;
-}
-
-.photographer_section article img {
+.home-card-link-photographer img {
     height: 200px;
     width: 200px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: box-shadow 0.15s ease-in;
+}
+
+.home-card-link-photographer h2 {
+    color: #d3573c;
+    font-size: 2.3em;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.home-card-link-photographer p:first-of-type {
+    color: #901c1c;
+    font-size: 0.85em;
+    margin: 0 0 5px;
+}
+.home-card-link-photographer p {
+    font-size: 0.65em;
+    margin-top: 0;
+}
+
+.home-card-link-photographer p.price-info {
+    font-size: 0.7em;
+    margin-top: 0;
+    color: #757575;
+}
+
+.error-message {
+    color: #901c1c;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.7rem;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+    .photographer_section {
+        grid-auto-flow: dense;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        margin-top: 30px;
+    }
+    header {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+    }
+    h1 {
+        margin-right: unset;
+    }
+    .logo {
+        height: 50px;
+        margin: 10px 0 0;
+    }
 }
