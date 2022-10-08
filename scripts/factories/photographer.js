@@ -6,7 +6,7 @@ function photographerFactory(data) {
         const article = document.createElement('article');
         article.setAttribute('aria-label', `Carte de présentation du photographe ${name}.`);
         const cardLink = document.createElement('a');
-        cardLink.setAttribute('href', `${LOCAL_URL}/photographer.html?id=${id}`);
+        cardLink.setAttribute('href', `photographer.html?id=${id}`);
         cardLink.classList.add('home-card-link-photographer');
         cardLink.setAttribute('aria-label', `Cliquer pour visiter la page dédiée au photographe ${name}.`);
         cardLink.setAttribute('tabindex', 1);
