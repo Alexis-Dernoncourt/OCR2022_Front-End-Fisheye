@@ -1,6 +1,6 @@
 async function getPhotographers() {
     try {
-        const data = await fetch(`${LOCAL_URL}/data/photographers.json`);
+        const data = await fetch('./data/photographers.json');
         if (!data.ok) {
             throw new Error(`code ${data.status}: ${data.statusText}`);
         }

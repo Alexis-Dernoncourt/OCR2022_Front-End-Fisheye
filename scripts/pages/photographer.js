@@ -14,7 +14,7 @@ window.addEventListener('load', async () => {
 
 async function getPhotographer(id) {
     try {
-        const data = await fetch(`${LOCAL_URL}/data/photographers.json`);
+        const data = await fetch('./data/photographers.json');
         if (!data.ok) {
             throw new Error(`code ${data.status}: ${data.statusText}`);
         }
@@ -28,7 +28,7 @@ async function getPhotographer(id) {
 
 async function getPhotographerGallery(id) {
     try {
-        const data = await fetch(`${LOCAL_URL}/data/photographers.json`);
+        const data = await fetch('./data/photographers.json');
         if (!data.ok) {
             throw new Error(`code ${data.status}: ${data.statusText}`);
         }
