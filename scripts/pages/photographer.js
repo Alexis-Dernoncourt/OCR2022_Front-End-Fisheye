@@ -27,7 +27,7 @@ async function getPhotographerGallery(id) {
     }
     return;
   });
-  return photosOfUser;
+  return { photosOfUser };
 }
 
 async function displayPhotographerData(photographer) {
@@ -40,11 +40,8 @@ async function displayPhotographerData(photographer) {
 }
 
 async function displayPhotographerGallery(medias) {
-  console.log(medias);
-  const photographerHeaderSection = document.querySelector("main");
-  // const photographerModel = photographerFactory(photographer);
-  // const userByIdCardDOM = photographerModel.getUserByIdCardDOM();
-  // const userByIdImg = photographerModel.getUserPictureDOM();
-  // photographerHeaderSection.prepend(userByIdCardDOM);
-  // photographerHeaderSection.appendChild(userByIdImg);
+  const photographerMainSection = document.querySelector("main");
+  const mediaDOM = mediaFactory(medias);
+  const userMediaDOM = mediaDOM.getMediaTypeDOM();
+  userMediaDOM.forEach((item) => photographerMainSection.append(item));
 }
