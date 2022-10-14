@@ -1,47 +1,47 @@
-window.addEventListener("load", async () => {
-  const params = new URL(document.location).searchParams;
-  const id = parseInt(params.get("id"));
-  await getPhotographer(id)
-    .then(async (data) => {
-      await displayPhotographerData(data);
-    })
-    .then(async () => {
-      const photosOfUser = await getPhotographerGallery(id);
-      await displayPhotographerGallery(photosOfUser);
-    })
-    .catch((err) => console.log(err));
+window.addEventListener('load', async () => {
+    const params = new URL(document.location).searchParams;
+    const id = parseInt(params.get('id'));
+    await getPhotographer(id)
+        .then(async (data) => {
+            await displayPhotographerData(data);
+        })
+        .then(async () => {
+            const photosOfUser = await getPhotographerGallery(id);
+            await displayPhotographerGallery(photosOfUser);
+        })
+        .catch((err) => console.log(err));
 });
 
 async function getPhotographer(id) {
-  const { photographers } = await getPhotographers();
-  const p = photographers.find((el) => el.id === id);
-  return p;
+    const { photographers } = await getPhotographers();
+    const p = photographers.find((el) => el.id === id);
+    return p;
 }
 
 async function getPhotographerGallery(id) {
-  const { media } = await getPhotographers();
-  let photosOfUser = [];
-  media.map((el) => {
-    if (el.photographerId === id) {
-      photosOfUser.push(el);
-    }
-    return;
-  });
-  return { photosOfUser };
+    const { media } = await getPhotographers();
+    let photosOfUser = [];
+    media.map((el) => {
+        if (el.photographerId === id) {
+            photosOfUser.push(el);
+        }
+        return;
+    });
+    return { photosOfUser };
 }
 
 async function displayPhotographerData(photographer) {
-  const photographerHeaderSection = document.querySelector(".photograph-header");
-  const photographerModel = photographerFactory(photographer);
-  const userByIdCardDOM = photographerModel.getUserByIdCardDOM();
-  const userByIdImg = photographerModel.getUserPictureDOM();
-  photographerHeaderSection.prepend(userByIdCardDOM);
-  photographerHeaderSection.appendChild(userByIdImg);
+    const photographerHeaderSection = document.querySelector('.photograph-header');
+    const photographerModel = photographerFactory(photographer);
+    const userByIdCardDOM = photographerModel.getUserByIdCardDOM();
+    const userByIdImg = photographerModel.getUserPictureDOM();
+    photographerHeaderSection.prepend(userByIdCardDOM);
+    photographerHeaderSection.appendChild(userByIdImg);
 }
 
 async function displayPhotographerGallery(medias) {
-  const photographerMainSection = document.querySelector("main");
-  const mediaDOM = mediaFactory(medias);
-  const userMediaDOM = mediaDOM.getMediaTypeDOM();
-  userMediaDOM.forEach((item) => photographerMainSection.append(item));
+    const photographerGallerySection = document.querySelector('.photograph-gallery');
+    const mediaDOM = mediaFactory(medias);
+    const userMediaDOM = mediaDOM.getMediaTypeDOM();
+    userMediaDOM.forEach((item) => photographerGallerySection.append(item));
 }

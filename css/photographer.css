@@ -61,6 +61,21 @@
     cursor: pointer;
 }
 
+.photograph-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 30rem;
+    grid-gap: 9.5rem;
+    margin: 5rem 10rem;
+}
+
+.media-gallery-item {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
 .modal {
     border-radius: 5px;
     background-color: #db8876;

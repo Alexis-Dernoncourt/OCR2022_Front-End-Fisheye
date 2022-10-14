@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <link href="css/style.css" rel="stylesheet" />
-    <meta charset="utf-8" />
-    <meta name="description" content="Page des photographes disponibles sur Fisheye, le site de mise en relation entre particuliers et photographes professionnels." />
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
-    <title>Fisheye - photographe</title>
-  </head>
-  <body>
-    <header>
-      <a href="index.html" aria-label="Fisheye Home page" tabindex="1">
-        <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" />
-      </a>
-    </header>
-    <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
-      <div id="contact_modal">
-        <div class="modal">
-          <header>
-            <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()" />
-          </header>
-          <form>
-            <div>
-              <label>Prénom</label>
-              <input />
+    <head>
+        <link href="css/style.css" rel="stylesheet" />
+        <meta charset="utf-8" />
+        <meta
+            name="description"
+            content="Page des photographes disponibles sur Fisheye, le site de mise en relation entre particuliers et photographes professionnels."
+        />
+        <link rel="icon" type="image/png" href="assets/favicon.png" />
+        <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
+        <title>Fisheye - photographe</title>
+    </head>
+    <body>
+        <header>
+            <a href="index.html" aria-label="Fisheye Home page" tabindex="1">
+                <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" />
+            </a>
+        </header>
+        <main id="main">
+            <section class="photograph-header">
+                <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+            </section>
+            <div role="dialog" id="contact_modal">
+                <div class="modal">
+                    <header>
+                        <h2>Contactez-moi</h2>
+                        <img src="assets/icons/close.svg" onclick="closeModal()" />
+                    </header>
+                    <form>
+                        <div>
+                            <label>Prénom</label>
+                            <input />
+                        </div>
+                        <button class="contact_button">Envoyer</button>
+                    </form>
+                </div>
             </div>
-            <button class="contact_button">Envoyer</button>
-          </form>
-        </div>
-      </div>
-    </main>
-    <script src="scripts/utils/api.js"></script>
-    <script src="scripts/pages/photographer.js"></script>
-    <script src="scripts/factories/photographer.js"></script>
-    <script src="scripts/utils/contactForm.js"></script>
-  </body>
+            <section class="photograph-gallery"></section>
+        </main>
+        <script src="scripts/utils/api.js"></script>
+        <script src="scripts/pages/photographer.js"></script>
+        <script src="scripts/factories/photographer.js"></script>
+        <script src="scripts/utils/contactForm.js"></script>
+    </body>
 </html>
