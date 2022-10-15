@@ -72,23 +72,44 @@ function photographerFactory(data) {
         img.setAttribute('tabindex', '1');
         return img;
     }
-    return { name, picture, getUserCardDOM, getUserByIdCardDOM, getUserPictureDOM };
+
+    return { name, picture, price, getUserCardDOM, getUserByIdCardDOM, getUserPictureDOM };
 }
 
 function mediaFactory(data) {
     const firstNameDiv = document.querySelector('.photograph-header-infos');
     const firstName = firstNameDiv.dataset.firstname;
+
     function getMediaTypeDOM() {
         if (data.image) {
+            const article = document.createElement('article');
+            const div = document.createElement('div');
+            div.classList.add('media-gallery-item-infos-container');
+            const p1 = document.createElement('p');
+            p1.textContent = data.title;
+            const p2 = document.createElement('p');
+            p2.textContent = `${data.likes} ♥`;
+            div.append(p1, p2);
             const img = document.createElement('img');
             img.setAttribute('src', `assets/medias/${firstName}/${data.image}`);
             img.setAttribute('alt', `${data.title}`);
             img.classList.add('media-gallery-item');
             img.setAttribute('aria-label', `${data.title}`);
             img.setAttribute('tabindex', 1);
-            return img;
+            article.appendChild(img);
+            article.appendChild(div);
+
+            return article;
         }
         if (data.video) {
+            const article = document.createElement('article');
+            const div = document.createElement('div');
+            div.classList.add('media-gallery-item-infos-container');
+            const p1 = document.createElement('p');
+            p1.textContent = data.title;
+            const p2 = document.createElement('p');
+            p2.textContent = `${data.likes} ♥`;
+            div.append(p1, p2);
             const video = document.createElement('video');
             const source = document.createElement('source');
             source.setAttribute('src', `assets/medias/${firstName}/${data.video}`);
@@ -97,8 +118,34 @@ function mediaFactory(data) {
             video.classList.add('media-gallery-item', 'video');
             video.setAttribute('aria-label', data.title);
             video.appendChild(source);
-            return video;
+            article.appendChild(video);
+            article.appendChild(div);
+
+            return article;
         }
     }
+
     return { getMediaTypeDOM };
+}
+
+function showPhotographerTotalLikesAndPriceFactory() {
+    function getTotalLikesAndPriceDOM(data) {
+        const { totalLikes, price } = data;
+
+        const aside = document.createElement('aside');
+        aside.classList.add('photographer-total-likes-and-price');
+        const div1 = document.createElement('div');
+        const span = document.createElement('span');
+        div1.textContent = totalLikes;
+        div1.appendChild(span);
+        span.textContent = ' ♥';
+        const div2 = document.createElement('div');
+        div2.textContent = `${price}€ / jour`;
+        aside.appendChild(div1);
+        aside.appendChild(div2);
+
+        return aside;
+    }
+
+    return { getTotalLikesAndPriceDOM };
 }

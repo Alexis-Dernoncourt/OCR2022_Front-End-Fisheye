@@ -3,10 +3,13 @@ window.addEventListener('load', async () => {
     const id = parseInt(params.get('id'));
     await getPhotographer(id)
         .then(async (data) => {
-            displayPhotographerData(data);
             const photosOfUser = await getPhotographerGallery(id);
+            const totalLikes = getTotalLikes(photosOfUser);
+            const { price } = photographerFactory(data);
+            displayPhotographerData(data);
             displayPhotographerGallery(photosOfUser);
             showVideosControls();
+            showTotalLikesAndPriceFactory({ totalLikes, price });
         })
         .catch((err) => console.log(err));
 });
@@ -47,7 +50,6 @@ function displayPhotographerGallery(medias) {
     });
 }
 
-//play video on click
 function showVideosControls() {
     const video = document.querySelectorAll('.video');
     video.forEach((item) => {
@@ -58,4 +60,18 @@ function showVideosControls() {
             item.removeAttribute('controls');
         });
     });
+}
+
+function getTotalLikes(photographer) {
+    let totalLikes = [];
+    photographer.photosOfUser.forEach((el) => totalLikes.push(el.likes));
+    const totalLikesOfUser = totalLikes.reduce((acc, el) => acc + el, 0);
+    return totalLikesOfUser;
+}
+
+function showTotalLikesAndPriceFactory(data) {
+    const mainElement = document.querySelector('main');
+    const elementDOM = showPhotographerTotalLikesAndPriceFactory();
+    const priceAndLikeElement = elementDOM.getTotalLikesAndPriceDOM(data);
+    mainElement.appendChild(priceAndLikeElement);
 }
