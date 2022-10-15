@@ -3,11 +3,10 @@ window.addEventListener('load', async () => {
     const id = parseInt(params.get('id'));
     await getPhotographer(id)
         .then(async (data) => {
-            await displayPhotographerData(data);
-        })
-        .then(async () => {
+            displayPhotographerData(data);
             const photosOfUser = await getPhotographerGallery(id);
-            await displayPhotographerGallery(photosOfUser);
+            displayPhotographerGallery(photosOfUser);
+            showVideosControls();
         })
         .catch((err) => console.log(err));
 });
@@ -30,7 +29,7 @@ async function getPhotographerGallery(id) {
     return { photosOfUser };
 }
 
-async function displayPhotographerData(photographer) {
+function displayPhotographerData(photographer) {
     const photographerHeaderSection = document.querySelector('.photograph-header');
     const photographerModel = photographerFactory(photographer);
     const userByIdCardDOM = photographerModel.getUserByIdCardDOM();
@@ -39,9 +38,24 @@ async function displayPhotographerData(photographer) {
     photographerHeaderSection.appendChild(userByIdImg);
 }
 
-async function displayPhotographerGallery(medias) {
+function displayPhotographerGallery(medias) {
     const photographerGallerySection = document.querySelector('.photograph-gallery');
-    const mediaDOM = mediaFactory(medias);
-    const userMediaDOM = mediaDOM.getMediaTypeDOM();
-    userMediaDOM.forEach((item) => photographerGallerySection.append(item));
+    medias.photosOfUser.map((item) => {
+        const mediaDOM = mediaFactory(item);
+        const userMediaDOM = mediaDOM.getMediaTypeDOM();
+        photographerGallerySection.append(userMediaDOM);
+    });
+}
+
+//play video on click
+function showVideosControls() {
+    const video = document.querySelectorAll('.video');
+    video.forEach((item) => {
+        item.addEventListener('mouseover', () => {
+            item.setAttribute('controls', 'true');
+        });
+        item.addEventListener('mouseleave', () => {
+            item.removeAttribute('controls');
+        });
+    });
 }

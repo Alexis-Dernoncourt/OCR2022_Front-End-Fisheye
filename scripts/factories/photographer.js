@@ -79,31 +79,26 @@ function mediaFactory(data) {
     const firstNameDiv = document.querySelector('.photograph-header-infos');
     const firstName = firstNameDiv.dataset.firstname;
     function getMediaTypeDOM() {
-        const galleryDOM = data.photosOfUser.map((item) => {
-            if (item.image) {
-                const img = document.createElement('img');
-                img.setAttribute('src', `assets/medias/${firstName}/${item.image}`);
-                img.setAttribute('alt', `${item.title}`);
-                img.classList.add('media-gallery-item');
-                img.setAttribute('aria-label', `${item.title}`);
-                img.setAttribute('tabindex', 1);
-                return img;
-            }
-            if (item.video) {
-                const video = document.createElement('video');
-                const source = document.createElement('source');
-                video.setAttribute('controls', 'true');
-                source.setAttribute('src', `assets/medias/${firstName}/${item.video}`);
-                source.setAttribute('type', `video/${item.video.split('.')[1]}`);
-                video.setAttribute('alt', `assets/medias/${firstName}/${item.title}`);
-                video.classList.add('media-gallery-item');
-                video.setAttribute('aria-label', item.title);
-                video.appendChild(source);
-                return video;
-            }
-            return;
-        });
-        return galleryDOM;
+        if (data.image) {
+            const img = document.createElement('img');
+            img.setAttribute('src', `assets/medias/${firstName}/${data.image}`);
+            img.setAttribute('alt', `${data.title}`);
+            img.classList.add('media-gallery-item');
+            img.setAttribute('aria-label', `${data.title}`);
+            img.setAttribute('tabindex', 1);
+            return img;
+        }
+        if (data.video) {
+            const video = document.createElement('video');
+            const source = document.createElement('source');
+            source.setAttribute('src', `assets/medias/${firstName}/${data.video}`);
+            source.setAttribute('type', `video/${data.video.split('.')[1]}`);
+            video.setAttribute('alt', `assets/medias/${firstName}/${data.title}`);
+            video.classList.add('media-gallery-item', 'video');
+            video.setAttribute('aria-label', data.title);
+            video.appendChild(source);
+            return video;
+        }
     }
     return { getMediaTypeDOM };
 }

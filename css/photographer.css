@@ -76,6 +76,10 @@
     object-fit: cover;
 }
 
+.media-gallery-item.video:hover {
+    cursor: pointer;
+}
+
 .modal {
     border-radius: 5px;
     background-color: #db8876;
