@@ -85,11 +85,18 @@ function mediaFactory(data) {
             const article = document.createElement('article');
             const div = document.createElement('div');
             div.classList.add('media-gallery-item-infos-container');
-            const p1 = document.createElement('p');
-            p1.textContent = data.title;
-            const p2 = document.createElement('p');
-            p2.textContent = `${data.likes} ♥`;
-            div.append(p1, p2);
+            const title = document.createElement('h2');
+            title.textContent = data.title;
+            const p = document.createElement('p');
+            const icon = document.createElement('img');
+            icon.setAttribute('src', 'assets/icons/heart-like.svg');
+            icon.classList.add('media-gallery-item-like-icon');
+            icon.setAttribute('role', 'icon');
+            icon.setAttribute('aria-label', 'Likes icon');
+            icon.setAttribute('aria-hidden', 'true');
+            p.textContent = `${data.likes}`;
+            p.append(icon);
+            div.append(title, p);
             const img = document.createElement('img');
             img.setAttribute('src', `assets/medias/${firstName}/${data.image}`);
             img.setAttribute('alt', `${data.title}`);
@@ -105,11 +112,18 @@ function mediaFactory(data) {
             const article = document.createElement('article');
             const div = document.createElement('div');
             div.classList.add('media-gallery-item-infos-container');
-            const p1 = document.createElement('p');
-            p1.textContent = data.title;
-            const p2 = document.createElement('p');
-            p2.textContent = `${data.likes} ♥`;
-            div.append(p1, p2);
+            const title = document.createElement('h2');
+            title.textContent = data.title;
+            const p = document.createElement('p');
+            const icon = document.createElement('img');
+            icon.setAttribute('src', 'assets/icons/heart-like.svg');
+            icon.classList.add('media-gallery-item-like-icon');
+            icon.setAttribute('role', 'icon');
+            icon.setAttribute('aria-label', 'Likes icon');
+            icon.setAttribute('aria-hidden', 'true');
+            p.textContent = `${data.likes}`;
+            p.append(icon);
+            div.append(title, p);
             const video = document.createElement('video');
             const source = document.createElement('source');
             source.setAttribute('src', `assets/medias/${firstName}/${data.video}`);
@@ -128,17 +142,50 @@ function mediaFactory(data) {
     return { getMediaTypeDOM };
 }
 
-function showPhotographerTotalLikesAndPriceFactory() {
+function showPhotographerExtraInfosFactory() {
+    function getSelectItemDOM() {
+        const section = document.createElement('section');
+        const form = document.createElement('form');
+        form.classList.add('sort-gallery-input-container');
+        const labelInput = document.createElement('label');
+        labelInput.textContent = 'Trier par';
+        labelInput.setAttribute('name', 'label-select-input');
+        labelInput.setAttribute('for', 'select-input');
+        labelInput.setAttribute('id', 'label-select-input');
+
+        const selectInput = document.createElement('select');
+        selectInput.setAttribute('name', 'select-input');
+        selectInput.setAttribute('id', 'select-input');
+        const selectOption1 = document.createElement('option');
+        const selectOption2 = document.createElement('option');
+        const selectOption3 = document.createElement('option');
+        selectOption1.textContent = 'Popularité';
+        selectOption2.textContent = 'Date';
+        selectOption3.textContent = 'Titre';
+
+        form.append(labelInput);
+        form.append(selectInput);
+        selectInput.append(selectOption1, selectOption2, selectOption3);
+        selectInput.classList.add('sort-gallery-input');
+        section.appendChild(form);
+
+        return section;
+    }
+
     function getTotalLikesAndPriceDOM(data) {
         const { totalLikes, price } = data;
 
         const aside = document.createElement('aside');
         aside.classList.add('photographer-total-likes-and-price');
         const div1 = document.createElement('div');
-        const span = document.createElement('span');
+        const icon = document.createElement('img');
+        icon.setAttribute('src', 'assets/icons/heart-like-black.svg');
+        icon.classList.add('media-gallery-item-like-icon');
+        icon.setAttribute('role', 'icon');
+        icon.setAttribute('aria-label', 'Likes icon');
+        icon.setAttribute('aria-hidden', 'true');
         div1.textContent = totalLikes;
-        div1.appendChild(span);
-        span.textContent = ' ♥';
+        div1.appendChild(icon);
         const div2 = document.createElement('div');
         div2.textContent = `${price}€ / jour`;
         aside.appendChild(div1);
@@ -147,5 +194,5 @@ function showPhotographerTotalLikesAndPriceFactory() {
         return aside;
     }
 
-    return { getTotalLikesAndPriceDOM };
+    return { getSelectItemDOM, getTotalLikesAndPriceDOM };
 }

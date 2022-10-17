@@ -1,4 +1,4 @@
-window.addEventListener('load', async () => {
+window.addEventListener('DOMContentLoaded', async () => {
     const params = new URL(document.location).searchParams;
     const id = parseInt(params.get('id'));
     await getPhotographer(id)
@@ -10,6 +10,7 @@ window.addEventListener('load', async () => {
             displayPhotographerGallery(photosOfUser);
             showVideosControls();
             showTotalLikesAndPriceFactory({ totalLikes, price });
+            showSelectInputForm();
         })
         .catch((err) => console.log(err));
 });
@@ -43,7 +44,8 @@ function displayPhotographerData(photographer) {
 
 function displayPhotographerGallery(medias) {
     const photographerGallerySection = document.querySelector('.photograph-gallery');
-    medias.photosOfUser.map((item) => {
+    const photos = medias.photosOfUser ? medias.photosOfUser : medias;
+    photos.map((item) => {
         const mediaDOM = mediaFactory(item);
         const userMediaDOM = mediaDOM.getMediaTypeDOM();
         photographerGallerySection.append(userMediaDOM);
@@ -71,7 +73,45 @@ function getTotalLikes(photographer) {
 
 function showTotalLikesAndPriceFactory(data) {
     const mainElement = document.querySelector('main');
-    const elementDOM = showPhotographerTotalLikesAndPriceFactory();
+    const elementDOM = showPhotographerExtraInfosFactory();
     const priceAndLikeElement = elementDOM.getTotalLikesAndPriceDOM(data);
     mainElement.appendChild(priceAndLikeElement);
 }
+
+function showSelectInputForm() {
+    const photographerGallerySection = document.querySelector('.photograph-gallery');
+    const extraInfos = showPhotographerExtraInfosFactory();
+    const selectElementDOM = extraInfos.getSelectItemDOM();
+
+    photographerGallerySection.before(selectElementDOM);
+}
+
+function sortPhotographerGallery(filter, medias) {
+    const photographerGallerySection = document.querySelector('.photograph-gallery');
+    photographerGallerySection.innerHTML = '';
+
+    if (filter === 'Popularité') {
+        const item = medias.photosOfUser.sort((a, b) => a.likes < b.likes);
+        return item;
+    }
+    if (filter === 'Date') {
+    }
+    if (filter === 'Titre') {
+    }
+}
+
+window.addEventListener('load', async () => {
+    document.querySelector('.photograph-header').addEventListener('click', async () => {
+        const params = new URL(document.location).searchParams;
+        const id = parseInt(params.get('id'));
+
+        try {
+            const photosOfUser = await getPhotographerGallery(id);
+            const filteredGallery = sortPhotographerGallery('Popularité', photosOfUser);
+            displayPhotographerGallery(filteredGallery);
+        } catch (error) {
+            console.log(error);
+        }
+        showVideosControls();
+    });
+});
