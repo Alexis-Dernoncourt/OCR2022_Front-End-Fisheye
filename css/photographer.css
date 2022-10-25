@@ -1,3 +1,8 @@
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #d3573c8a transparent;
+}
+
 #contact_modal {
   display: none;
 }
@@ -55,6 +60,7 @@
   width: 170px;
   height: 70px;
   border: none;
+  margin: 2rem 0;
   background-color: #901c1c;
   border-radius: 5px;
   cursor: pointer;
@@ -161,17 +167,34 @@
   right: 3%;
 }
 
+.modal-container {
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
 .modal {
   border-radius: 5px;
   background-color: #db8876;
-  width: 50%;
-  display: flex;
+  box-shadow: 0 0 1.5rem gray;
+  width: 35vw;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 35px;
   margin: auto;
-  z-index: 10;
+  position: absolute;
+  top: 2rem;
+  bottom: 2rem;
+  left: auto;
+  right: auto;
+  z-index: 150;
 }
 
 .modal header {
@@ -184,9 +207,19 @@
 }
 
 .modal header h2 {
-  font-size: 64px;
+  font-size: 4rem;
+  line-height: 4.2rem;
   font-weight: normal;
-  text-align: center;
+  text-align: left;
+  margin: 0;
+}
+
+.modal > header > button {
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
 }
 
 form {
@@ -194,11 +227,13 @@ form {
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
+  margin: 2rem auto;
 }
 
 form label {
   color: #312e2e;
-  font-size: 36px;
+  font-size: 2.5rem;
+  margin: 1rem 0;
 }
 
 form div {
@@ -209,14 +244,23 @@ form div {
   margin-bottom: 26px;
 }
 
-form input {
+form input,
+form textarea {
   width: 100%;
-  height: 68px;
+  height: 4rem;
   border: none;
   border-radius: 5px;
-  font: 1.8em sans-serif;
+  font: 1.8rem sans-serif;
+}
+form textarea {
+  height: unset;
 }
 
+@media screen and (min-width: 320px) {
+  .modal {
+    width: 80w;
+  }
+}
 @media screen and (max-width: 420px) {
   .photographer-total-likes-and-price {
     width: 100%;
@@ -233,14 +277,27 @@ form input {
     padding: 1rem;
   }
 }
+@media screen and (min-width: 468px) {
+  .modal {
+    width: 65w;
+  }
+}
 @media screen and (max-width: 596px) {
   .photograph-gallery {
     margin: 2.5rem 2rem 15rem;
+  }
+  .modal header h2 {
+    font-size: 3rem;
+    line-height: 3.2rem;
+    margin-top: 4rem;
   }
 }
 @media screen and (min-width: 768px) {
   .photograph-header {
     margin: 0 100px;
+  }
+  .modal {
+    width: 50vw;
   }
 }
 @media screen and (max-width: 768px) {
@@ -268,6 +325,9 @@ form input {
     margin: 0 0 2px;
     text-align: center;
   }
+  .modal {
+    width: 70vw;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 996px) {
   .photograph-gallery {
@@ -281,5 +341,10 @@ form input {
   .media-gallery-item-infos-container p {
     font-size: 1.8rem;
     line-height: 2rem;
+  }
+}
+@media screen and (min-width: 1130px) {
+  .modal {
+    width: 50vw;
   }
 }
