@@ -84,6 +84,7 @@ function mediaFactory(data) {
       const img = document.createElement('img');
       img.setAttribute('src', `assets/medias/${firstName}/${data.image}`);
       img.setAttribute('alt', `${data.title}`);
+      img.setAttribute('loading', 'lazy');
       img.classList.add('media-gallery-item');
       img.setAttribute('aria-label', `${data.title}`);
       article.appendChild(img);

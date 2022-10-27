@@ -65,7 +65,8 @@ html {
   border-radius: 5px;
   cursor: pointer;
 }
-.contact_button:hover {
+.contact_button:hover,
+.contact_button:focus {
   background-color: #d3573c;
 }
 

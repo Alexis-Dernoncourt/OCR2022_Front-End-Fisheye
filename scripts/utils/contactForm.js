@@ -7,6 +7,7 @@ function displayModal() {
   getPhotographerName();
 
   mainElement.setAttribute('aria-hidden', 'true');
+  mainElement.setAttribute('tabindex', '-1');
   modal.setAttribute('aria-hidden', 'false');
   modal.style.display = 'flex';
   modalChildren.style.display = 'flex';
@@ -17,12 +18,14 @@ function closeModal() {
   const modal = document.getElementById('contact_modal');
   const modalChildren = document.querySelector('.modal');
   const mainElement = document.querySelector('#main');
+  const modalHeaderBtn = document.getElementById('modal-contact-btn-page');
   document.querySelector('body').style.overflowY = '';
 
   mainElement.setAttribute('aria-hidden', 'false');
   mainElement.setAttribute('aria-hidden', 'true');
   modal.style.display = 'none';
   modalChildren.style.display = 'none';
+  modalHeaderBtn.focus();
 }
 
 function showContactModal() {
@@ -49,15 +52,33 @@ function closeModalOnEscapeKeypress() {
   return;
 }
 
-function init() {
-  showContactModal();
-  hideContactModal();
-
+function keepFocusOnModal() {
   document.addEventListener('keydown', (e) => {
+    const modalDiv = document.querySelector('.modal');
+    const modalFocusableElements = modalDiv.querySelectorAll('button, input, textarea');
+    const firstElement = modalFocusableElements[0];
+    const lastElement = modalFocusableElements[modalFocusableElements.length - 1];
+
     if (e.key === 'Escape') {
       closeModalOnEscapeKeypress();
     }
+
+    if (e.key === 'Tab') {
+      if (e.target.outerHTML === firstElement.outerHTML && document.activeElement.outerHTML === firstElement.outerHTML) {
+        modalFocusableElements[1].focus();
+        e.preventDefault();
+      } else if (e.target.outerHTML === lastElement.outerHTML) {
+        firstElement.focus();
+        e.preventDefault();
+      }
+    }
   });
+}
+
+function init() {
+  showContactModal();
+  hideContactModal();
+  keepFocusOnModal();
 }
 
 init();

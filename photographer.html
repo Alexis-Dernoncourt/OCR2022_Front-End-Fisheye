@@ -18,29 +18,29 @@
       <section class="photograph-header">
         <button class="contact_button" id="modal-contact-btn-page">Contactez-moi</button>
       </section>
-      <div role="dialog" class="modal-container" id="contact_modal" aria-hidden="true" aria-labelledby="#modal-title-header">
-        <section class="modal">
-          <header>
-            <h2 id="modal-title-header">Contactez-moi<br /></h2>
-            <button type="button" aria-label="Close Contact form">
-              <img src="assets/icons/close.svg" alt="" role="icon" aria-hidden="true" id="modal-contact-btn" tabindex="1" />
-            </button>
-          </header>
-          <form id="contact-form">
-            <label for="last">Nom</label>
-            <input type="text" name="last" id="last" required />
-            <label for="first">Prénom</label>
-            <input type="text" name="first" id="first" required />
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required />
-            <label for="message">Votre message</label>
-            <textarea rows="5" required></textarea>
-            <button type="submit" class="contact_button">Envoyer</button>
-          </form>
-        </section>
-      </div>
       <section class="photograph-gallery"></section>
     </main>
+    <div class="modal-container" id="contact_modal" aria-hidden="true" aria-labelledby="#modal-title-header">
+      <section class="modal" role="dialog" aria-modal="true">
+        <header>
+          <h2 id="modal-title-header">Contactez-moi<br /></h2>
+          <button type="button" id="modal-icon-close" aria-label="Close Contact form">
+            <img src="assets/icons/close.svg" alt="" role="icon" aria-hidden="true" id="modal-contact-btn" />
+          </button>
+        </header>
+        <form id="contact-form" aria-labelledby="modal-title-header">
+          <label for="last">Nom</label>
+          <input type="text" name="last" id="last" required minlength="2" />
+          <label for="first">Prénom</label>
+          <input type="text" name="first" id="first" required minlength="2" />
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required />
+          <label for="message">Votre message</label>
+          <textarea rows="5" required minlength="2"></textarea>
+          <button type="submit" class="contact_button">Envoyer</button>
+        </form>
+      </section>
+    </div>
     <script src="scripts/utils/api.js"></script>
     <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/factories/photographer.js"></script>
