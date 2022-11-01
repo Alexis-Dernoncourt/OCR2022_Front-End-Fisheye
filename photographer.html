@@ -24,20 +24,41 @@
       <section class="modal" role="dialog" aria-modal="true">
         <header>
           <h2 id="modal-title-header">Contactez-moi<br /></h2>
-          <button type="button" id="modal-icon-close" aria-label="Close Contact form">
+          <button type="button" id="modal-icon-close" aria-label="Close Contact form" tabindex="1">
             <img src="assets/icons/close.svg" alt="" role="icon" aria-hidden="true" id="modal-contact-btn" />
           </button>
         </header>
         <form id="contact-form" aria-labelledby="modal-title-header">
           <label for="last">Nom</label>
-          <input type="text" name="last" id="last" required minlength="2" />
+          <input
+            type="text"
+            tabindex="1"
+            name="last"
+            id="last"
+            autocomplete="off"
+            minlength="2"
+            pattern="[a-zA-Z]+[\D]{2,}"
+            title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
+          />
           <label for="first">Prénom</label>
-          <input type="text" name="first" id="first" required minlength="2" />
+          <input
+            type="text"
+            tabindex="1"
+            name="first"
+            id="first"
+            autocomplete="off"
+            minlength="2"
+            pattern="[a-zA-Z]+[\D]{2,}"
+            title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
+          />
+
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" required />
+          <input type="email" tabindex="1" name="email" id="email" autocomplete="off" pattern=".+@.+\.[a-zA-Z]{2,}" title="Veuillez entrer une adresse mail valide." />
+
           <label for="message">Votre message</label>
-          <textarea rows="5" required minlength="2"></textarea>
-          <button type="submit" class="contact_button">Envoyer</button>
+          <textarea rows="5" tabindex="1" autocomplete="off" minlength="5" maxlength="500" title="Entrez un message de minimum 5 caractères et maximum 500 caractères."></textarea>
+
+          <button type="submit" tabindex="1" class="contact_button">Envoyer</button>
         </form>
       </section>
     </div>

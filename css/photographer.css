@@ -233,8 +233,8 @@ form {
 
 form label {
   color: #312e2e;
-  font-size: 2.5rem;
-  margin: 1rem 0;
+  font-size: 2rem;
+  margin: 1rem 0 0.2rem;
 }
 
 form div {
@@ -253,8 +253,28 @@ form textarea {
   border-radius: 5px;
   font: 1.8rem sans-serif;
 }
+form input:focus,
+form input:focus-visible,
+form textarea:focus,
+form textarea:focus-visible {
+  border: 2px solid rgba(121, 121, 240, 0.4) !important;
+  border-spacing: 8px;
+}
 form textarea {
   height: unset;
+}
+
+input:invalid {
+  border: 4px solid #901c1c !important;
+}
+
+.form-error {
+  font-size: 1.1rem;
+  color: #901c1c;
+  margin: 0;
+}
+.form-border-error {
+  border: 4px solid #901c1c;
 }
 
 @media screen and (min-width: 320px) {
