@@ -20,8 +20,8 @@
       </section>
       <section class="photograph-gallery"></section>
     </main>
-    <div class="modal-container" id="contact_modal" aria-hidden="true" aria-labelledby="#modal-title-header">
-      <section class="modal" role="dialog" aria-modal="true">
+    <div class="modal-container" id="contact_modal" role="dialog" aria-hidden="true" aria-describedby="#modal-title-header">
+      <section class="modal" aria-modal="true">
         <header>
           <h2 id="modal-title-header">Contactez-moi<br /></h2>
           <button type="button" id="modal-icon-close" aria-label="Close Contact form" tabindex="1">
@@ -33,7 +33,7 @@
           <input
             type="text"
             tabindex="1"
-            name="last"
+            name="lastName"
             id="last"
             autocomplete="off"
             minlength="2"
@@ -44,7 +44,7 @@
           <input
             type="text"
             tabindex="1"
-            name="first"
+            name="firstName"
             id="first"
             autocomplete="off"
             minlength="2"
@@ -56,9 +56,18 @@
           <input type="email" tabindex="1" name="email" id="email" autocomplete="off" pattern=".+@.+\.[a-zA-Z]{2,}" title="Veuillez entrer une adresse mail valide." />
 
           <label for="message">Votre message</label>
-          <textarea rows="5" tabindex="1" autocomplete="off" minlength="5" maxlength="500" title="Entrez un message de minimum 5 caractères et maximum 500 caractères."></textarea>
+          <textarea
+            rows="5"
+            id="message"
+            name="message"
+            tabindex="1"
+            autocomplete="off"
+            minlength="5"
+            maxlength="500"
+            title="Entrez un message de minimum 5 caractères et maximum 500 caractères."
+          ></textarea>
 
-          <button type="submit" tabindex="1" class="contact_button">Envoyer</button>
+          <button type="submit" tabindex="1" class="contact_button" id="modal-form-btn" disabled="true">Envoyer</button>
         </form>
       </section>
     </div>

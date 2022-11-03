@@ -277,6 +277,11 @@ input:invalid {
   border: 4px solid #901c1c;
 }
 
+.contact_button:disabled {
+  background-color: #525252;
+  cursor: not-allowed;
+}
+
 @media screen and (min-width: 320px) {
   .modal {
     width: 80w;
