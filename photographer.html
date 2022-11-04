@@ -38,6 +38,7 @@
             autocomplete="off"
             minlength="2"
             pattern="[a-zA-Z]+[\D]{2,}"
+            aria-required="true"
             title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
           />
           <label for="first">Prénom</label>
@@ -49,11 +50,21 @@
             autocomplete="off"
             minlength="2"
             pattern="[a-zA-Z]+[\D]{2,}"
+            aria-required="true"
             title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
           />
 
           <label for="email">Email</label>
-          <input type="email" tabindex="1" name="email" id="email" autocomplete="off" pattern=".+@.+\.[a-zA-Z]{2,}" title="Veuillez entrer une adresse mail valide." />
+          <input
+            type="email"
+            tabindex="1"
+            name="email"
+            id="email"
+            autocomplete="off"
+            pattern=".+@.+\.[a-zA-Z]{2,}"
+            aria-required="true"
+            title="Veuillez entrer une adresse mail valide."
+          />
 
           <label for="message">Votre message</label>
           <textarea
@@ -64,6 +75,7 @@
             autocomplete="off"
             minlength="5"
             maxlength="500"
+            aria-required="true"
             title="Entrez un message de minimum 5 caractères et maximum 500 caractères."
           ></textarea>
 

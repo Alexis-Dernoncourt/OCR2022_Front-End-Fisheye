@@ -85,7 +85,7 @@ let formIsValid = {};
 function checkValidationOfModalForm() {
   // REGEX RULES
   const regex = {
-    noSpecialChars: /^[a-zA-Z' \-àäâéèêëçùüû]{2,}$/i,
+    noSpecialChars: /^[a-zA-Z' \-.,;àäâéèêëçùüû]{2,}$/i,
     mailCheck: /.+@.+\.[a-zA-Z]{2,}$/i,
   };
   const modalDiv = document.querySelector('.modal');
@@ -99,6 +99,7 @@ function checkValidationOfModalForm() {
 
       if (error === null) {
         errorElement.setAttribute('id', idAttribute);
+        errorElement.setAttribute('aria-invalid', 'true');
         errorElement.textContent = textContent;
         formElement.classList.add('form-border-error');
         formElement.after(errorElement);
@@ -158,9 +159,11 @@ function checkValidationFormOnSubmit(e) {
 }
 
 function init() {
+  const submitBtn = document.querySelector('#modal-form-btn');
   showContactModal();
   hideContactModal();
   keepFocusOnModal();
+  submitBtn.addEventListener('mouseover', disableSubmitIfInvalidModalForm);
   document.addEventListener('keydown', disableSubmitIfInvalidModalForm);
   document.addEventListener('change', checkValidationOfModalForm);
   document.addEventListener('submit', checkValidationFormOnSubmit);
