@@ -67,6 +67,7 @@ function mediaFactory(data) {
   function getMediaTypeDOM() {
     if (data.image) {
       const article = document.createElement('article');
+      article.setAttribute('tabindex', '1');
       const div = document.createElement('div');
       div.classList.add('media-gallery-item-infos-container');
       const title = document.createElement('h2');
@@ -94,6 +95,7 @@ function mediaFactory(data) {
     }
     if (data.video) {
       const article = document.createElement('article');
+      article.setAttribute('tabindex', '1');
       const div = document.createElement('div');
       div.classList.add('media-gallery-item-infos-container');
       const title = document.createElement('h2');
@@ -140,6 +142,7 @@ function showPhotographerExtraInfosFactory() {
     const selectInput = document.createElement('select');
     selectInput.setAttribute('name', 'select-input');
     selectInput.setAttribute('id', 'select-input');
+    selectInput.setAttribute('tabindex', '1');
     const selectOption1 = document.createElement('option');
     const selectOption2 = document.createElement('option');
     const selectOption3 = document.createElement('option');
