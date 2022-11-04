@@ -1,77 +1,376 @@
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #d3573c8a transparent;
+}
+
 #contact_modal {
-    display: none;
+  display: none;
 }
 
 .photograph-header {
-    background-color: #fafafa;
-    height: 300px;
-    margin: 0 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background-color: #fafafa;
+  min-height: 300px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 20px 50px;
+}
+
+.photograph-header-infos {
+  min-width: 380px;
+}
+.photograph-header-infos h2 {
+  color: #d3573c;
+  font-size: 6.4rem;
+  margin: 0 0 2px;
+  /* text-align: center; */
+}
+.photograph-header-infos p:first-of-type {
+  color: #d3573c;
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+  margin: 0 0 2px;
+}
+.photograph-header-infos p:last-of-type {
+  color: #525252;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  margin: 0;
+}
+
+.photograph-header img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  transition: box-shadow 0.15s ease-in;
 }
 
 .contact_button {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    padding: 11px;
-    width: 170px;
-    height: 70px;
-    border: none;
-    background-color: #901c1c;
-    border-radius: 5px;
-    cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 70px;
+  border: none;
+  margin: 2rem 0;
+  background-color: #901c1c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.contact_button:hover,
+.contact_button:focus {
+  background-color: #d3573c;
+}
+
+.sort-gallery-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: auto;
+  min-height: 4rem;
+  padding: 2rem 10rem;
+  position: relative;
+}
+.sort-gallery-input-container label {
+  font-size: 2rem;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.sort-gallery-input-container select {
+  background-color: #901c1c;
+  border: transparent;
+  width: 15rem;
+  height: 5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+.sort-gallery-input-container select option {
+  border-top: #312e2e 2px solid;
+}
+
+.photograph-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 25vw;
+  grid-gap: 8vw;
+  place-content: center;
+  margin: 2.5rem 10rem 15rem;
+}
+
+.media-gallery-item-infos-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.media-gallery-item-infos-container h2,
+.media-gallery-item-infos-container p {
+  padding: 0;
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 3.1rem;
+  color: #901c1c;
+}
+
+.media-gallery-item-infos-container p {
+  display: flex;
+  align-items: center;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  margin-left: 1.5rem;
+}
+
+.media-gallery-item-like-icon {
+  margin-left: 0.4rem;
+}
+
+.media-gallery-item {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.media-gallery-item.video:hover {
+  cursor: pointer;
+}
+
+.photographer-total-likes-and-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 37.5rem;
+  height: 8rem;
+  background-color: #db8876;
+  border-radius: 5px;
+  color: #312e2e;
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+  font-weight: 500;
+  position: fixed;
+  bottom: 0;
+  right: 3%;
+}
+
+.modal-container {
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgb(255, 255, 255, 0.5);
 }
 
 .modal {
-    border-radius: 5px;
-    background-color: #db8876;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 35px;
-    margin: auto;
+  border-radius: 5px;
+  background-color: #db8876;
+  box-shadow: 0 0 1.5rem gray;
+  width: 35vw;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px;
+  margin: auto;
+  position: absolute;
+  top: 2rem;
+  bottom: 2rem;
+  left: auto;
+  right: auto;
+  z-index: 150;
 }
 
 .modal header {
-    justify-content: space-between;
-    width: 100%;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .modal header img {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+  font-size: 4rem;
+  line-height: 4.2rem;
+  font-weight: normal;
+  text-align: left;
+  margin: 0;
+}
+
+.modal > header > button {
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
 }
 
 form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2rem auto;
 }
 
 form label {
-    color: #312e2e;
-    font-size: 36px;
+  color: #312e2e;
+  font-size: 2rem;
+  margin: 1rem 0 0.2rem;
 }
 
 form div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: self-start;
+  margin-bottom: 26px;
 }
 
-form input {
+form input,
+form textarea {
+  width: 100%;
+  height: 4rem;
+  border: none;
+  border-radius: 5px;
+  font: 1.8rem sans-serif;
+}
+form input:focus,
+form input:focus-visible,
+form textarea:focus,
+form textarea:focus-visible {
+  border: 2px solid rgba(121, 121, 240, 0.4) !important;
+  border-spacing: 8px;
+}
+form textarea {
+  height: unset;
+}
+
+input:invalid {
+  border: 4px solid #901c1c !important;
+}
+
+.form-error {
+  font-size: 1.1rem;
+  color: #901c1c;
+  margin: 0;
+}
+.form-border-error {
+  border: 4px solid #901c1c;
+}
+
+.contact_button:disabled {
+  background-color: #525252;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 320px) {
+  .modal {
+    width: 80w;
+  }
+}
+@media screen and (max-width: 420px) {
+  .photographer-total-likes-and-price {
     width: 100%;
-    height: 68px;
-    border: none;
-    border-radius: 5px;
-    font: 1.8em sans-serif;
+    height: 6rem;
+    font-size: 2rem;
+    left: 0;
+    right: 0;
+    border-radius: 5px 5px 0 0;
+  }
+}
+@media screen and (max-width: 468px) {
+  .photograph-header {
+    justify-content: center;
+    padding: 1rem;
+  }
+}
+@media screen and (min-width: 468px) {
+  .modal {
+    width: 65w;
+  }
+}
+@media screen and (max-width: 596px) {
+  .photograph-gallery {
+    margin: 2.5rem 2rem 15rem;
+  }
+  .modal header h2 {
+    font-size: 3rem;
+    line-height: 3.2rem;
+    margin-top: 4rem;
+  }
+}
+@media screen and (min-width: 768px) {
+  .photograph-header {
+    margin: 0 100px;
+  }
+  .modal {
+    width: 50vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  .photograph-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 60vw;
+    grid-gap: 12vw;
+  }
+  .media-gallery-item-infos-container {
+    align-items: flex-start;
+  }
+  .photograph-header {
+    justify-content: space-around;
+    padding: 1rem 3rem;
+  }
+  .photograph-header-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+  }
+  .photograph-header-infos h2 {
+    color: #d3573c;
+    font-size: 4.2rem;
+    margin: 0 0 2px;
+    text-align: center;
+  }
+  .modal {
+    width: 70vw;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 996px) {
+  .photograph-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 35vw;
+    grid-gap: 7vw;
+  }
+}
+@media screen and (max-width: 1130px) {
+  .media-gallery-item-infos-container h2,
+  .media-gallery-item-infos-container p {
+    font-size: 1.8rem;
+    line-height: 2rem;
+  }
+}
+@media screen and (min-width: 1130px) {
+  .modal {
+    width: 50vw;
+  }
 }
