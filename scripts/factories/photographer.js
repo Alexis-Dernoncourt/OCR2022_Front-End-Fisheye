@@ -88,6 +88,7 @@ function mediaFactory(data) {
       img.setAttribute('loading', 'lazy');
       img.classList.add('media-gallery-item');
       img.setAttribute('aria-label', `${data.title}`);
+      img.dataset.id = data.id;
       article.appendChild(img);
       article.appendChild(div);
 
@@ -117,6 +118,7 @@ function mediaFactory(data) {
       video.setAttribute('alt', `assets/medias/${firstName}/${data.title}`);
       video.classList.add('media-gallery-item', 'video');
       video.setAttribute('aria-label', data.title);
+      video.dataset.id = data.id;
       video.appendChild(source);
       article.appendChild(video);
       article.appendChild(div);

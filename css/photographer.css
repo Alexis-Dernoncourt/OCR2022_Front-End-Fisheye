@@ -3,7 +3,8 @@ html {
   scrollbar-color: #d3573c8a transparent;
 }
 
-#contact_modal {
+#contact_modal,
+#lightbox_modal {
   display: none;
 }
 
@@ -179,6 +180,14 @@ html {
   z-index: 100;
   background-color: rgb(255, 255, 255, 0.5);
 }
+.lightbox-container {
+  position: relative;
+  display: block;
+  width: 80%;
+  height: 80%;
+  background-color: #ccc;
+  z-index: 150;
+}
 
 .modal {
   border-radius: 5px;
@@ -215,12 +224,17 @@ html {
   margin: 0;
 }
 
-.modal > header > button {
+.modal > header > button,
+.lightbox-container > button {
   border: none;
   background: transparent;
   position: absolute;
   top: 3rem;
   right: 3rem;
+}
+.lightbox-container > button {
+  background: #ccc;
+  cursor: pointer;
 }
 
 form {
