@@ -115,7 +115,7 @@ function mediaFactory(data) {
       const source = document.createElement('source');
       source.setAttribute('src', `assets/medias/${firstName}/${data.video}`);
       source.setAttribute('type', `video/${data.video.split('.')[1]}`);
-      video.setAttribute('alt', `assets/medias/${firstName}/${data.title}`);
+      video.setAttribute('alt', `${data.title}`);
       video.classList.add('media-gallery-item', 'video');
       video.setAttribute('aria-label', data.title);
       video.dataset.id = data.id;

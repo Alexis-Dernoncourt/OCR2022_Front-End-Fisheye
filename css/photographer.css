@@ -183,10 +183,13 @@ html {
 .lightbox-container {
   position: relative;
   display: block;
-  width: 80%;
-  height: 80%;
-  background-color: #ccc;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 0 2.5rem #525252;
+  background-color: #fff;
   z-index: 150;
+  overflow: hidden;
 }
 
 .modal {
@@ -227,14 +230,61 @@ html {
 .modal > header > button,
 .lightbox-container > button {
   border: none;
+  color: #312e2e;
   background: transparent;
   position: absolute;
   top: 3rem;
   right: 3rem;
 }
 .lightbox-container > button {
-  background: #ccc;
+  background: transparent;
   cursor: pointer;
+}
+
+.lightbox-content,
+.galery-content-container,
+.galery-image-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.galery-content-container {
+  align-items: center;
+}
+.galery-image-container {
+  margin: 4rem auto;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+}
+
+.gallery-btn {
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  cursor: pointer;
+  font-size: 4rem;
+  font-size-adjust: 0.8;
+  background-color: transparent;
+  border: none;
+  color: #901c1c;
+}
+.gallery-prev-btn {
+  left: 1rem;
+}
+.gallery-next-btn {
+  right: 1rem;
+}
+
+.gallery-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
 }
 
 form {

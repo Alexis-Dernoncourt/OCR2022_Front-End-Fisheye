@@ -8,7 +8,7 @@ async function init() {
       const { price } = photographerFactory(data);
       displayPhotographerData(data);
       displayPhotographerGallery(photosOfUser);
-      showVideosControls();
+      //showVideosControls();
       showTotalLikesAndPriceFactory({ totalLikes, price });
       showSelectInputForm();
       getSelectFilter();
@@ -53,17 +53,17 @@ function displayPhotographerGallery(medias) {
   });
 }
 
-function showVideosControls() {
-  const video = document.querySelectorAll('.video');
-  video.forEach((item) => {
-    item.addEventListener('mouseover', () => {
-      item.setAttribute('controls', 'true');
-    });
-    item.addEventListener('mouseleave', () => {
-      item.removeAttribute('controls');
-    });
-  });
-}
+// function showVideosControls() {
+//   const video = document.querySelectorAll('.video');
+//   video.forEach((item) => {
+//     item.addEventListener('mouseover', () => {
+//       item.setAttribute('controls', 'true');
+//     });
+//     item.addEventListener('mouseleave', () => {
+//       item.removeAttribute('controls');
+//     });
+//   });
+// }
 
 function getTotalLikes(photographer) {
   let totalLikes = [];
@@ -90,6 +90,14 @@ function sortPhotographerGallery(filter, medias) {
   const photographerGallerySection = document.querySelector('.photograph-gallery');
   photographerGallerySection.innerHTML = '';
 
+  // if (photoId !== null && filter === 'gallery-modal') {
+  //   const items = medias.photosOfUser.sort((a, b) => {
+  //     console.log('prevElement=>', a);
+
+  //     return a.id === photoId;
+  //   });
+  //   return items;
+  // }
   if (filter === 'Popularité') {
     const items = medias.photosOfUser.sort((a, b) => a.likes < b.likes);
     return items;
@@ -120,5 +128,14 @@ function getSelectFilter() {
     showVideosControls();
   });
 }
+
+// function likeHandler() {
+//   const likeBtn = document.querySelector('.media-gallery-item-like-icon');
+//   likeBtn.addEventListener('click', addLike);
+
+//   const addLike = async () => {
+//     await fetch()
+//   }
+// }
 
 init();
