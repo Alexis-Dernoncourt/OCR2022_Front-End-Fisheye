@@ -240,6 +240,9 @@ html {
   background: transparent;
   cursor: pointer;
 }
+.lightbox-container > button:focus {
+  border: 1px solid #d3573c;
+}
 
 .lightbox-content,
 .galery-content-container,
@@ -285,6 +288,12 @@ html {
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
+}
+
+.galery-item-title {
+  color: #901c1c;
+  font-weight: 600;
+  font-size: 2rem;
 }
 
 form {

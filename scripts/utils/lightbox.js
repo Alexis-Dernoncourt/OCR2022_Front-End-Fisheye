@@ -37,6 +37,7 @@ function galleryFactory(imageObject) {
       image.setAttribute('alt', imageObject.title);
     }
     title.textContent = imageObject.title;
+    title.classList.add('galery-item-title');
 
     return { prevBtn, nextBtn, image, isVideo, video, title, imageObject };
   }
@@ -53,11 +54,11 @@ async function displayGallery(e) {
   const photosOfUserGallery = await getPhotographerGallery(id);
   const photoId = e.target.dataset.id;
 
-  getMediasGallery(photosOfUserGallery, photoId);
   document.querySelector('body').style.overflowY = 'hidden';
   mainElement.setAttribute('aria-hidden', 'true');
   gallery.setAttribute('aria-hidden', 'false');
   gallery.style.display = 'flex';
+  getMediasGallery(photosOfUserGallery, photoId);
   closeBtn.focus();
   closeBtn.addEventListener('click', closeGallery);
 }
@@ -92,58 +93,86 @@ function closeGallery() {
 function getMediasGallery(photos, photoId) {
   const { photosOfUser } = photos;
   const photoIdInGallery = photosOfUser.findIndex((el) => el.id == photoId);
-
-  //fonction qui récupère le tableau des médias et l'index à afficher dans la lightbox
+  getContainerDOMGallery(photosOfUser, photoIdInGallery);
   getMediasToShowInGallery(photosOfUser, photoIdInGallery);
 }
 
-function getMediasToShowInGallery(arrayOfUserPhotos, selectedId) {
-  const domElement = document.getElementById('lightbox-medias-content');
-  domElement.classList.add('lightbox-content');
+function findImageById(arrayOfUserPhotos, selectedId) {
   const srcToShow = arrayOfUserPhotos.find((_, i) => i == selectedId);
   const galleryDOM = galleryFactory(srcToShow);
   const galleryContent = galleryDOM.getGalleryDOM();
+  return { galleryContent };
+}
 
+function getContainerDOMGallery(arrayOfUserPhotos, selectedId) {
+  const domElement = document.getElementById('lightbox-medias-content');
+  domElement.classList.add('lightbox-content');
+  const { galleryContent } = findImageById(arrayOfUserPhotos, selectedId);
   const divContentContainer = document.createElement('div');
   const divImageContainer = document.createElement('div');
   divContentContainer.classList.add('galery-content-container');
   divImageContainer.classList.add('galery-image-container');
   divContentContainer.append(galleryContent.prevBtn);
   divContentContainer.append(galleryContent.nextBtn);
-  if (galleryContent.isVideo) {
-    divImageContainer.append(galleryContent.video);
-    // divImageContainer.append(galleryContent.videoTitle);
-  } else {
-    divImageContainer.append(galleryContent.image);
-  }
-  divImageContainer.append(galleryContent.title);
   divContentContainer.append(divImageContainer);
   domElement.append(divContentContainer);
 
   const prevBtn = document.querySelector('.gallery-prev-btn');
   const nextBtn = document.querySelector('.gallery-next-btn');
-  prevBtn.addEventListener('click', (e) => navigateToNextOrPrevImage(e, arrayOfUserPhotos, selectedId));
-  nextBtn.addEventListener('click', (e) => navigateToNextOrPrevImage(e, arrayOfUserPhotos, selectedId));
+  prevBtn.addEventListener('click', (e) => navigateToNextOrPrevImage(e, arrayOfUserPhotos));
+  nextBtn.addEventListener('click', (e) => navigateToNextOrPrevImage(e, arrayOfUserPhotos));
+  document.addEventListener('keyup', (e) => navigateToNextOrPrevImage(e, arrayOfUserPhotos));
 }
 
-function navigateToNextOrPrevImage(event, arrayOfUserPhotos, currentImageID) {
-  event.preventDefault();
-  const btnIdentifier = event.target.dataset.goto;
-  const lastIndexOfArray = arrayOfUserPhotos.length - 1;
+function getMediasToShowInGallery(arrayOfUserPhotos, selectedId) {
+  const imageContainer = document.querySelector('.galery-image-container');
+  const { galleryContent } = findImageById(arrayOfUserPhotos, selectedId);
+  const currentImageID = arrayOfUserPhotos.findIndex((_, i) => i == selectedId);
+  imageContainer.dataset.id = currentImageID;
 
-  function cleanHTML() {
-    const container = document.querySelector('#lightbox-medias-content');
-    container.innerHTML = '';
+  if (galleryContent.isVideo) {
+    imageContainer.append(galleryContent.video);
+  } else {
+    imageContainer.append(galleryContent.image);
   }
 
-  if (btnIdentifier === 'next') {
-    const targetIndex = currentImageID < lastIndexOfArray ? currentImageID + 1 : 0;
-    cleanHTML();
-    getMediasToShowInGallery(arrayOfUserPhotos, targetIndex);
-  } else if (btnIdentifier === 'prev') {
-    const targetIndex = currentImageID > 0 ? currentImageID - 1 : lastIndexOfArray;
-    cleanHTML();
-    getMediasToShowInGallery(arrayOfUserPhotos, targetIndex);
+  imageContainer.append(galleryContent.title);
+}
+
+function navigateToNextOrPrevImage(event, arrayOfUserPhotos) {
+  const btnIdentifier = event.target.dataset.goto;
+  const lastIndexOfArray = arrayOfUserPhotos.length - 1;
+  const container = document.querySelector('.galery-image-container');
+  const currentID = parseInt(container.dataset.id);
+
+  const keyEvents = ['ArrowLeft', 'ArrowRight', 'Escape'];
+
+  if (event.key && event.key !== '' && keyEvents.includes(event.key)) {
+    if (event.key === keyEvents[2]) {
+      closeGallery();
+    }
+  }
+
+  if (btnIdentifier === 'prev' || (event.key !== ' ' && event.key === keyEvents[0])) {
+    if (event.key && !keyEvents.includes(event.key)) {
+      return;
+    } else {
+      container.innerHTML = '';
+      const targetIndex = currentID > 0 ? currentID - 1 : lastIndexOfArray;
+      container.dataset.id = targetIndex;
+      getMediasToShowInGallery(arrayOfUserPhotos, targetIndex);
+    }
+  }
+
+  if (btnIdentifier === 'next' || (event.key !== ' ' && event.key === keyEvents[1])) {
+    if (event.key && !keyEvents.includes(event.key)) {
+      return;
+    } else {
+      container.innerHTML = '';
+      const targetIndex = currentID < lastIndexOfArray ? currentID + 1 : 0;
+      container.dataset.id = targetIndex;
+      getMediasToShowInGallery(arrayOfUserPhotos, targetIndex);
+    }
   }
 }
 
