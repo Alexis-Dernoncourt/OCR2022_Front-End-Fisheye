@@ -94,7 +94,7 @@ function getMediasGallery(photos, photoId) {
   const { photosOfUser } = photos;
   const photoIdInGallery = photosOfUser.findIndex((el) => el.id == photoId);
   getContainerDOMGallery(photosOfUser, photoIdInGallery);
-  getMediasToShowInGallery(photosOfUser, photoIdInGallery);
+  getMediaToShowInGallery(photosOfUser, photoIdInGallery);
 }
 
 function findImageById(arrayOfUserPhotos, selectedId) {
@@ -124,7 +124,7 @@ function getContainerDOMGallery(arrayOfUserPhotos, selectedId) {
   document.addEventListener('keyup', (e) => navigateToNextOrPrevImage(e, arrayOfUserPhotos));
 }
 
-function getMediasToShowInGallery(arrayOfUserPhotos, selectedId) {
+function getMediaToShowInGallery(arrayOfUserPhotos, selectedId) {
   const imageContainer = document.querySelector('.galery-image-container');
   const { galleryContent } = findImageById(arrayOfUserPhotos, selectedId);
   const currentImageID = arrayOfUserPhotos.findIndex((_, i) => i == selectedId);
@@ -144,35 +144,38 @@ function navigateToNextOrPrevImage(event, arrayOfUserPhotos) {
   const lastIndexOfArray = arrayOfUserPhotos.length - 1;
   const container = document.querySelector('.galery-image-container');
   const currentID = parseInt(container.dataset.id);
-
   const keyEvents = ['ArrowLeft', 'ArrowRight', 'Escape'];
 
-  if (event.key && event.key !== '' && keyEvents.includes(event.key)) {
+  function navigate(target) {
+    let targetIndex;
+    container.innerHTML = '';
+
+    if (target === 'prev') {
+      targetIndex = currentID > 0 ? currentID - 1 : lastIndexOfArray;
+    } else if (target === 'next') {
+      targetIndex = currentID < lastIndexOfArray ? currentID + 1 : 0;
+    }
+    container.dataset.id = targetIndex;
+    getMediaToShowInGallery(arrayOfUserPhotos, targetIndex);
+  }
+
+  if (event.key && keyEvents.includes(event.key)) {
+    if (event.key === keyEvents[0]) {
+      navigate('prev');
+    }
+    if (event.key === keyEvents[1]) {
+      navigate('next');
+    }
     if (event.key === keyEvents[2]) {
       closeGallery();
     }
   }
 
-  if (btnIdentifier === 'prev' || (event.key !== ' ' && event.key === keyEvents[0])) {
-    if (event.key && !keyEvents.includes(event.key)) {
-      return;
-    } else {
-      container.innerHTML = '';
-      const targetIndex = currentID > 0 ? currentID - 1 : lastIndexOfArray;
-      container.dataset.id = targetIndex;
-      getMediasToShowInGallery(arrayOfUserPhotos, targetIndex);
-    }
+  if (btnIdentifier === 'prev') {
+    navigate('prev');
   }
-
-  if (btnIdentifier === 'next' || (event.key !== ' ' && event.key === keyEvents[1])) {
-    if (event.key && !keyEvents.includes(event.key)) {
-      return;
-    } else {
-      container.innerHTML = '';
-      const targetIndex = currentID < lastIndexOfArray ? currentID + 1 : 0;
-      container.dataset.id = targetIndex;
-      getMediasToShowInGallery(arrayOfUserPhotos, targetIndex);
-    }
+  if (btnIdentifier === 'next') {
+    navigate('next');
   }
 }
 
