@@ -25,7 +25,7 @@ function galleryFactory(imageObject) {
     nextBtn.textContent = '>';
     if (isVideo) {
       video.classList.add('gallery-image');
-      source.setAttribute('src', `/assets/medias/${name}/${imageObject.video}`);
+      source.setAttribute('src', `assets/medias/${name}/${imageObject.video}`);
       source.setAttribute('type', `video/${imageObject.video.split('.')[1]}`);
       video.setAttribute('alt', `${imageObject.title}`);
       video.setAttribute('aria-label', imageObject.title);
@@ -33,7 +33,7 @@ function galleryFactory(imageObject) {
       video.appendChild(source);
     } else {
       image.classList.add('gallery-image');
-      image.setAttribute('src', `/assets/medias/${name}/${imageObject.image}`);
+      image.setAttribute('src', `assets/medias/${name}/${imageObject.image}`);
       image.setAttribute('alt', imageObject.title);
     }
     title.textContent = imageObject.title;
