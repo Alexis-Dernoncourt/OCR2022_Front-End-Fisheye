@@ -85,11 +85,6 @@ function closeGallery() {
   // dernier-élément-visité.focus();
 }
 
-// function hideGalleryModal() {
-//   const galleryContent = document.getElementById('lightbox-icon-close');
-//   galleryContent.addEventListener('click', closeGallery);
-// }
-
 function getMediasGallery(photos, photoId) {
   const { photosOfUser } = photos;
   const photoIdInGallery = photosOfUser.findIndex((el) => el.id == photoId);
@@ -143,7 +138,7 @@ function navigateToNextOrPrevImage(event, arrayOfUserPhotos) {
   const btnIdentifier = event.target.dataset.goto;
   const lastIndexOfArray = arrayOfUserPhotos.length - 1;
   const container = document.querySelector('.galery-image-container');
-  const currentID = parseInt(container.dataset.id);
+  const currentID = container ? parseInt(container.dataset.id) : null;
   const keyEvents = ['ArrowLeft', 'ArrowRight', 'Escape'];
 
   function navigate(target) {
@@ -155,27 +150,20 @@ function navigateToNextOrPrevImage(event, arrayOfUserPhotos) {
     } else if (target === 'next') {
       targetIndex = currentID < lastIndexOfArray ? currentID + 1 : 0;
     }
+
     container.dataset.id = targetIndex;
     getMediaToShowInGallery(arrayOfUserPhotos, targetIndex);
   }
 
-  if (event.key && keyEvents.includes(event.key)) {
-    if (event.key === keyEvents[0]) {
-      navigate('prev');
-    }
-    if (event.key === keyEvents[1]) {
-      navigate('next');
-    }
-    if (event.key === keyEvents[2]) {
-      closeGallery();
-    }
+  if (event.type === 'keyup' && keyEvents.includes(event.key)) {
+    event.key === keyEvents[0] && navigate('prev');
+    event.key === keyEvents[1] && navigate('next');
+    event.key === keyEvents[2] && closeGallery();
   }
 
-  if (btnIdentifier === 'prev') {
-    navigate('prev');
-  }
-  if (btnIdentifier === 'next') {
-    navigate('next');
+  if (event.type !== 'keyup') {
+    btnIdentifier === 'prev' && navigate('prev');
+    btnIdentifier === 'next' && navigate('next');
   }
 }
 
