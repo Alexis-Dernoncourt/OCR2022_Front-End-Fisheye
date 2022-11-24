@@ -125,7 +125,7 @@ function getSelectFilter() {
     } catch (error) {
       console.log(error);
     }
-    showVideosControls();
+    //showVideosControls();
   });
 }
 
