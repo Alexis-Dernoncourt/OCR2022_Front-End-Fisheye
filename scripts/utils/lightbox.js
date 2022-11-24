@@ -2,49 +2,6 @@ function init() {
   showGalleryModal();
 }
 
-function galleryFactory(imageObject) {
-  function getGalleryDOM() {
-    const name = document.querySelector('.photograph-header-infos').dataset.firstname;
-    const prevBtn = document.createElement('button');
-    const nextBtn = document.createElement('button');
-    const image = document.createElement('img');
-    const title = document.createElement('p');
-    const isVideo = imageObject.video ? true : false;
-    const video = document.createElement('video');
-    const source = document.createElement('source');
-
-    prevBtn.classList.add('gallery-btn', 'gallery-prev-btn');
-    nextBtn.classList.add('gallery-btn', 'gallery-next-btn');
-    prevBtn.setAttribute('role', 'link');
-    prevBtn.setAttribute('aria-label', 'Previous image');
-    nextBtn.setAttribute('role', 'link');
-    nextBtn.setAttribute('aria-label', 'Next image');
-    prevBtn.dataset.goto = 'prev';
-    nextBtn.dataset.goto = 'next';
-    prevBtn.textContent = '<';
-    nextBtn.textContent = '>';
-    if (isVideo) {
-      video.classList.add('gallery-image');
-      source.setAttribute('src', `assets/medias/${name}/${imageObject.video}`);
-      source.setAttribute('type', `video/${imageObject.video.split('.')[1]}`);
-      video.setAttribute('alt', `${imageObject.title}`);
-      video.setAttribute('aria-label', imageObject.title);
-      video.setAttribute('controls', 'true');
-      video.appendChild(source);
-    } else {
-      image.classList.add('gallery-image');
-      image.setAttribute('src', `assets/medias/${name}/${imageObject.image}`);
-      image.setAttribute('alt', imageObject.title);
-    }
-    title.textContent = imageObject.title;
-    title.classList.add('galery-item-title');
-
-    return { prevBtn, nextBtn, image, isVideo, video, title, imageObject };
-  }
-
-  return { getGalleryDOM };
-}
-
 async function displayGallery(e) {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
@@ -141,30 +98,36 @@ function navigateToNextOrPrevImage(event, arrayOfUserPhotos) {
   const currentID = container ? parseInt(container.dataset.id) : null;
   const keyEvents = ['ArrowLeft', 'ArrowRight', 'Escape'];
 
-  function navigate(target) {
-    let targetIndex;
-    container.innerHTML = '';
-
-    if (target === 'prev') {
-      targetIndex = currentID > 0 ? currentID - 1 : lastIndexOfArray;
-    } else if (target === 'next') {
-      targetIndex = currentID < lastIndexOfArray ? currentID + 1 : 0;
+  if (event.type === 'keyup') {
+    if (keyEvents.includes(event.key)) {
+      event.key === keyEvents[0] && navigate(container, 'prev', currentID, lastIndexOfArray, arrayOfUserPhotos);
+      event.key === keyEvents[1] && navigate(container, 'next', currentID, lastIndexOfArray, arrayOfUserPhotos);
+      event.key === keyEvents[2] && closeGallery();
     }
 
-    container.dataset.id = targetIndex;
-    getMediaToShowInGallery(arrayOfUserPhotos, targetIndex);
-  }
-
-  if (event.type === 'keyup' && keyEvents.includes(event.key)) {
-    event.key === keyEvents[0] && navigate('prev');
-    event.key === keyEvents[1] && navigate('next');
-    event.key === keyEvents[2] && closeGallery();
+    if (event.key === 'Tab') {
+      console.log('Gérer le focus de la modale !');
+    }
   }
 
   if (event.type !== 'keyup') {
-    btnIdentifier === 'prev' && navigate('prev');
-    btnIdentifier === 'next' && navigate('next');
+    btnIdentifier === 'prev' && navigate(container, 'prev', currentID, lastIndexOfArray, arrayOfUserPhotos);
+    btnIdentifier === 'next' && navigate(container, 'next', currentID, lastIndexOfArray, arrayOfUserPhotos);
   }
+}
+
+function navigate(container, target, currentId, lastIndex, arrayOfData) {
+  let targetIndex;
+  container.innerHTML = '';
+
+  if (target === 'prev') {
+    targetIndex = currentId > 0 ? currentId - 1 : lastIndex;
+  } else if (target === 'next') {
+    targetIndex = currentId < lastIndex ? currentId + 1 : 0;
+  }
+
+  container.dataset.id = targetIndex;
+  getMediaToShowInGallery(arrayOfData, targetIndex);
 }
 
 init();

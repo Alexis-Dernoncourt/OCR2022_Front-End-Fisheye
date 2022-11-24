@@ -1,6 +1,10 @@
 async function init() {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
+  if (isNaN(id)) {
+    // voir pour gérer un id inconnu
+    window.location = '/';
+  }
   await getPhotographer(id)
     .then(async (data) => {
       const photosOfUser = await getPhotographerGallery(id);
