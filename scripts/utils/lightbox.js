@@ -1,14 +1,16 @@
-function init() {
-  showGalleryModal();
-}
-
-async function displayGallery(e) {
+async function displayGallery(e, array = null) {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
   const gallery = document.getElementById('lightbox_modal');
   const closeBtn = document.getElementById('lightbox-icon-close');
   const mainElement = document.querySelector('#main');
-  const photosOfUserGallery = await getPhotographerGallery(id);
+  let photosOfUserGallery;
+  if (!array) {
+    const { photosOfUser } = await getPhotographerGallery(id);
+    photosOfUserGallery = photosOfUser;
+  } else {
+    photosOfUserGallery = array;
+  }
   const photoId = e.target.dataset.id;
 
   document.querySelector('body').style.overflowY = 'hidden';
@@ -20,13 +22,11 @@ async function displayGallery(e) {
   closeBtn.addEventListener('click', closeGallery);
 }
 
-function showGalleryModal() {
-  setTimeout(() => {
-    const galleryContent = document.querySelectorAll('.media-gallery-item');
-    galleryContent.forEach((e) => {
-      e.addEventListener('click', displayGallery);
-    });
-  }, 500);
+function showGalleryModal(arr = null) {
+  const galleryContent = document.querySelectorAll('.media-gallery-item');
+  galleryContent.forEach((e) => {
+    e.addEventListener('click', (e) => displayGallery(e, arr));
+  });
 }
 
 function closeGallery() {
@@ -43,10 +43,9 @@ function closeGallery() {
 }
 
 function getMediasGallery(photos, photoId) {
-  const { photosOfUser } = photos;
-  const photoIdInGallery = photosOfUser.findIndex((el) => el.id == photoId);
-  getContainerDOMGallery(photosOfUser, photoIdInGallery);
-  getMediaToShowInGallery(photosOfUser, photoIdInGallery);
+  const photoIdInGallery = photos.findIndex((el) => el.id == photoId);
+  getContainerDOMGallery(photos, photoIdInGallery);
+  getMediaToShowInGallery(photos, photoIdInGallery);
 }
 
 function findImageById(arrayOfUserPhotos, selectedId) {
@@ -129,5 +128,3 @@ function navigate(container, target, currentId, lastIndex, arrayOfData) {
   container.dataset.id = targetIndex;
   getMediaToShowInGallery(arrayOfData, targetIndex);
 }
-
-init();

@@ -2,7 +2,6 @@ async function init() {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
   if (isNaN(id)) {
-    // voir pour gérer un id inconnu
     window.location = '/';
   }
   await getPhotographer(id)
@@ -12,12 +11,15 @@ async function init() {
       const { price } = photographerFactory(data);
       displayPhotographerData(data);
       displayPhotographerGallery(photosOfUser);
-      //showVideosControls();
       showTotalLikesAndPriceFactory({ totalLikes, price });
       showSelectInputForm();
       getSelectFilter();
+      showGalleryModal();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      window.location = '/'; //redirect to home if id is unknown
+    });
 }
 
 async function getPhotographer(id) {
@@ -94,14 +96,6 @@ function sortPhotographerGallery(filter, medias) {
   const photographerGallerySection = document.querySelector('.photograph-gallery');
   photographerGallerySection.innerHTML = '';
 
-  // if (photoId !== null && filter === 'gallery-modal') {
-  //   const items = medias.photosOfUser.sort((a, b) => {
-  //     console.log('prevElement=>', a);
-
-  //     return a.id === photoId;
-  //   });
-  //   return items;
-  // }
   if (filter === 'Popularité') {
     const items = medias.photosOfUser.sort((a, b) => a.likes < b.likes);
     return items;
@@ -126,10 +120,10 @@ function getSelectFilter() {
       const photosOfUser = await getPhotographerGallery(id);
       const filteredGallery = sortPhotographerGallery(e.target.value, photosOfUser);
       displayPhotographerGallery(filteredGallery);
+      showGalleryModal(filteredGallery);
     } catch (error) {
       console.log(error);
     }
-    //showVideosControls();
   });
 }
 
