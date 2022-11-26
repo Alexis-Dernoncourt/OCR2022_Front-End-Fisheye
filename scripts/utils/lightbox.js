@@ -1,9 +1,12 @@
-async function displayGallery(e, array = null) {
+async function displayGallery(e, array) {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
   const gallery = document.getElementById('lightbox_modal');
   const closeBtn = document.getElementById('lightbox-icon-close');
   const mainElement = document.querySelector('#main');
+  const videoSubItem = document.querySelector('.media-gallery-item.video');
+  videoSubItem.setAttribute('tabindex', '-1');
+
   let photosOfUserGallery;
   if (!array) {
     const { photosOfUser } = await getPhotographerGallery(id);
@@ -11,7 +14,7 @@ async function displayGallery(e, array = null) {
   } else {
     photosOfUserGallery = array;
   }
-  const photoId = e.target.dataset.id;
+  const photoId = e.target ? e.target.dataset.id : e.dataset.id;
 
   document.querySelector('body').style.overflowY = 'hidden';
   mainElement.setAttribute('aria-hidden', 'true');
@@ -20,12 +23,22 @@ async function displayGallery(e, array = null) {
   getMediasGallery(photosOfUserGallery, photoId);
   closeBtn.focus();
   closeBtn.addEventListener('click', closeGallery);
+  document.addEventListener('keydown', (e) => keepFocusOnGallery(e));
 }
 
 function showGalleryModal(arr = null) {
   const galleryContent = document.querySelectorAll('.media-gallery-item');
-  galleryContent.forEach((e) => {
-    e.addEventListener('click', (e) => displayGallery(e, arr));
+  document.addEventListener('keydown', async (e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      try {
+        await displayGallery(e.target.firstChild, arr);
+      } catch (error) {
+        console.info(error);
+      }
+    }
+  });
+  galleryContent.forEach((item) => {
+    item.addEventListener('click', (e) => displayGallery(e, arr));
   });
 }
 
@@ -103,10 +116,6 @@ function navigateToNextOrPrevImage(event, arrayOfUserPhotos) {
       event.key === keyEvents[1] && navigate(container, 'next', currentID, lastIndexOfArray, arrayOfUserPhotos);
       event.key === keyEvents[2] && closeGallery();
     }
-
-    if (event.key === 'Tab') {
-      console.log('Gérer le focus de la modale !');
-    }
   }
 
   if (event.type !== 'keyup') {
@@ -127,4 +136,27 @@ function navigate(container, target, currentId, lastIndex, arrayOfData) {
 
   container.dataset.id = targetIndex;
   getMediaToShowInGallery(arrayOfData, targetIndex);
+}
+
+function keepFocusOnGallery(e) {
+  if (e.key === 'Tab') {
+    const galleryDOMElements = document.querySelectorAll(
+      '.lightbox-container #lightbox-icon-close, .lightbox-container .gallery-prev-btn, .lightbox-container .gallery-next-btn, .lightbox-container video'
+    );
+    const firstElement = galleryDOMElements[0];
+    const lastElement = galleryDOMElements[galleryDOMElements.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstElement) {
+        lastElement.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastElement) {
+        firstElement.focus();
+        e.preventDefault();
+      }
+    }
+  }
+  return;
 }

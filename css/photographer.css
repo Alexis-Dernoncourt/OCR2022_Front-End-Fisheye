@@ -148,8 +148,14 @@ html {
   object-fit: cover;
 }
 
-.media-gallery-item.video:hover {
+.photograph-gallery article {
+  transition: scale 0.15s ease-in;
+}
+
+.photograph-gallery article:hover,
+.photograph-gallery article:focus {
   cursor: pointer;
+  scale: 1.02;
 }
 
 .photographer-total-likes-and-price {
