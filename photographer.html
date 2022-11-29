@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="css/style.css" rel="stylesheet" />
-    <meta charset="utf-8" />
-    <meta name="description" content="Page des photographes disponibles sur Fisheye, le site de mise en relation entre particuliers et photographes professionnels." />
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
-    <title>Fisheye - photographe</title>
-  </head>
-  <body>
-    <header>
-      <a href="index.html" aria-label="Fisheye Home page" tabindex="1">
-        <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" />
-      </a>
-    </header>
-    <main id="main" aria-hidden="false">
-      <section class="photograph-header">
-        <button class="contact_button" id="modal-contact-btn-page" tabindex="1">Contactez-moi</button>
-      </section>
-      <section class="photograph-gallery"></section>
-    </main>
-    <div class="modal-container" id="contact_modal" role="dialog" aria-hidden="true" aria-describedby="#modal-title-header">
-      <section class="modal" aria-modal="true">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="css/style.css" rel="stylesheet" />
+        <meta charset="utf-8" />
+        <meta
+            name="description"
+            content="Page des photographes disponibles sur Fisheye, le site de mise en relation entre particuliers et photographes professionnels."
+        />
+        <link rel="icon" type="image/png" href="assets/favicon.png" />
+        <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
+        <title>Fisheye - photographe</title>
+    </head>
+    <body>
         <header>
-          <h2 id="modal-title-header">Contactez-moi<br /></h2>
-          <button type="button" id="modal-icon-close" aria-label="Close Contact form" tabindex="1">
-            <img src="assets/icons/close.svg" alt="" role="icon" aria-hidden="true" id="modal-contact-btn" />
-          </button>
+            <a href="index.html" aria-label="Fisheye Home page" tabindex="1">
+                <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" />
+            </a>
         </header>
-        <form id="contact-form" aria-labelledby="modal-title-header">
-          <label for="last">Nom</label>
-          <input
-            type="text"
-            tabindex="1"
-            name="lastName"
-            id="last"
-            autocomplete="off"
-            minlength="2"
-            pattern="[a-zA-Z]+[\D]{2,}"
-            aria-required="true"
-            title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
-          />
-          <label for="first">Prénom</label>
-          <input
-            type="text"
-            tabindex="1"
-            name="firstName"
-            id="first"
-            autocomplete="off"
-            minlength="2"
-            pattern="[a-zA-Z]+[\D]{2,}"
-            aria-required="true"
-            title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
-          />
+        <main id="main" aria-hidden="false">
+            <section class="photograph-header">
+                <button class="contact_button" id="modal-contact-btn-page" tabindex="1">Contactez-moi</button>
+            </section>
+            <section class="photograph-gallery"></section>
+        </main>
+        <div class="modal-container" id="contact_modal" role="dialog" aria-hidden="true" aria-describedby="#modal-title-header">
+            <section class="modal" aria-modal="true">
+                <header>
+                    <h2 id="modal-title-header">Contactez-moi<br /></h2>
+                    <button type="button" id="modal-icon-close" aria-label="Close Contact form" tabindex="1">
+                        <img src="assets/icons/close.svg" alt="" role="icon" aria-hidden="true" id="modal-contact-btn" />
+                    </button>
+                </header>
+                <form id="contact-form" aria-labelledby="modal-title-header">
+                    <label for="last">Nom</label>
+                    <input
+                        type="text"
+                        tabindex="1"
+                        name="lastName"
+                        id="last"
+                        autocomplete="off"
+                        minlength="2"
+                        pattern="[a-zA-Z]+[\D]{2,}"
+                        aria-required="true"
+                        title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
+                    />
+                    <label for="first">Prénom</label>
+                    <input
+                        type="text"
+                        tabindex="1"
+                        name="firstName"
+                        id="first"
+                        autocomplete="off"
+                        minlength="2"
+                        pattern="[a-zA-Z]+[\D]{2,}"
+                        aria-required="true"
+                        title="Uniquement des caractères (pas de chiffre ni de caractères spéciaux..)."
+                    />
 
-          <label for="email">Email</label>
-          <input
-            type="email"
-            tabindex="1"
-            name="email"
-            id="email"
-            autocomplete="off"
-            pattern=".+@.+\.[a-zA-Z]{2,}"
-            aria-required="true"
-            title="Veuillez entrer une adresse mail valide."
-          />
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        tabindex="1"
+                        name="email"
+                        id="email"
+                        autocomplete="off"
+                        pattern=".+@.+\.[a-zA-Z]{2,}"
+                        aria-required="true"
+                        title="Veuillez entrer une adresse mail valide."
+                    />
 
-          <label for="message">Votre message</label>
-          <textarea
-            rows="5"
-            id="message"
-            name="message"
-            tabindex="1"
-            autocomplete="off"
-            minlength="5"
-            maxlength="500"
-            aria-required="true"
-            title="Entrez un message de minimum 5 caractères et maximum 500 caractères."
-          ></textarea>
+                    <label for="message">Votre message</label>
+                    <textarea
+                        rows="5"
+                        id="message"
+                        name="message"
+                        tabindex="1"
+                        autocomplete="off"
+                        minlength="5"
+                        maxlength="500"
+                        aria-required="true"
+                        title="Entrez un message de minimum 5 caractères et maximum 500 caractères."
+                    ></textarea>
 
-          <button type="submit" tabindex="1" class="contact_button" id="modal-form-btn" disabled="true">Envoyer</button>
-        </form>
-      </section>
-    </div>
-    <div class="modal-container" id="lightbox_modal" role="dialog" aria-hidden="true" aria-label="image closeup view">
-      <div class="lightbox-container">
-        <button type="button" id="lightbox-icon-close" aria-label="Close dialog" tabindex="1">
-          <img src="assets/icons/close-darkred.svg" alt="" role="icon" aria-hidden="true" id="lightbox-close-btn" />
-        </button>
-        <div id="lightbox-medias-content" class="lightbox-content"></div>
-      </div>
-    </div>
-    <script src="scripts/utils/api.js"></script>
-    <script src="scripts/utils/lightbox.js"></script>
-    <script src="scripts/pages/photographer.js"></script>
-    <script src="scripts/factories/photographer.js"></script>
-    <script src="scripts/factories/gallery.js"></script>
-    <script src="scripts/utils/contactForm.js"></script>
-  </body>
+                    <button type="submit" tabindex="1" class="contact_button" id="modal-form-btn" disabled="true">Envoyer</button>
+                </form>
+            </section>
+        </div>
+        <div class="modal-container" id="lightbox_modal" role="dialog" aria-hidden="true" aria-label="image closeup view">
+            <div class="lightbox-container">
+                <button type="button" id="lightbox-icon-close" aria-label="Close dialog" tabindex="1">
+                    <img src="assets/icons/close-darkred.svg" alt="" role="icon" aria-hidden="true" id="lightbox-close-btn" />
+                </button>
+                <div id="lightbox-medias-content" class="lightbox-content"></div>
+            </div>
+        </div>
+        <script src="scripts/utils/api.js"></script>
+        <script src="scripts/utils/lightbox.js"></script>
+        <script src="scripts/pages/photographer.js"></script>
+        <script src="scripts/factories/photographer.js"></script>
+        <script src="scripts/factories/gallery.js"></script>
+        <script src="scripts/utils/likes.js"></script>
+        <script src="scripts/utils/contactForm.js"></script>
+    </body>
 </html>
