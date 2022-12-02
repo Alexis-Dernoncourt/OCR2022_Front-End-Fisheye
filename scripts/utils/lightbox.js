@@ -1,4 +1,4 @@
-async function displayGallery(e, array) {
+async function displayGallery(e, photosArrayState) {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
   const gallery = document.getElementById('lightbox_modal');
@@ -8,11 +8,11 @@ async function displayGallery(e, array) {
   videoSubItem.setAttribute('tabindex', '-1');
 
   let photosOfUserGallery;
-  if (!array) {
+  if (!photosArrayState) {
     const { photosOfUser } = await getPhotographerGallery(id);
     photosOfUserGallery = photosOfUser;
   } else {
-    photosOfUserGallery = array;
+    photosOfUserGallery = photosArrayState;
   }
   const photoId = e.target ? e.target.dataset.id : e.dataset.id;
 
