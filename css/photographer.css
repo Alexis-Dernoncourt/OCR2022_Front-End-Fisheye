@@ -265,7 +265,7 @@ html {
   justify-content: center;
   flex-direction: column;
   width: 70%;
-  height: 60%;
+  height: 100%;
 }
 
 .gallery-btn {
@@ -411,7 +411,6 @@ input:invalid {
   }
   .galery-image-container {
     width: 70%;
-    height: 60vw;
   }
 }
 @media screen and (max-width: 768px) {
