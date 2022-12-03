@@ -4,6 +4,8 @@ function galleryFactory(imageObject) {
     const prevBtn = document.createElement('button');
     const nextBtn = document.createElement('button');
     const image = document.createElement('img');
+    const iconImageL = document.createElement('img');
+    const iconImageR = document.createElement('img');
     const title = document.createElement('p');
     const isVideo = imageObject.video ? true : false;
     const video = document.createElement('video');
@@ -17,8 +19,18 @@ function galleryFactory(imageObject) {
     nextBtn.setAttribute('aria-label', 'Next image');
     prevBtn.dataset.goto = 'prev';
     nextBtn.dataset.goto = 'next';
-    prevBtn.textContent = '<';
-    nextBtn.textContent = '>';
+    iconImageL.setAttribute('src', 'assets/icons/arrow-left.svg');
+    iconImageL.setAttribute('alt', '');
+    iconImageL.setAttribute('role', 'icon');
+    iconImageL.setAttribute('aria-hidden', 'true');
+    iconImageR.setAttribute('src', 'assets/icons/arrow-right.svg');
+    iconImageR.setAttribute('alt', '');
+    iconImageR.setAttribute('role', 'icon');
+    iconImageR.setAttribute('aria-hidden', 'true');
+    iconImageL.dataset.goto = 'prev';
+    iconImageR.dataset.goto = 'next';
+    prevBtn.appendChild(iconImageL);
+    nextBtn.appendChild(iconImageR);
     if (isVideo) {
       video.classList.add('gallery-image');
       source.setAttribute('src', `assets/medias/${name}/${imageObject.video}`);

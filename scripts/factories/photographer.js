@@ -52,8 +52,7 @@ function photographerFactory(data) {
   function getUserPictureDOM() {
     const img = document.createElement('img');
     img.setAttribute('src', picture);
-    img.setAttribute('alt', `${name}, photographe à ${city}, ${country}.`);
-    img.setAttribute('aria-label', `Photo de ${name}, photographe à ${city}, ${country}.`);
+    img.setAttribute('alt', `${name}`);
     return img;
   }
 
@@ -73,6 +72,7 @@ function mediaFactory(data) {
     const p = document.createElement('p');
     const icon = document.createElement('img');
     icon.setAttribute('src', 'assets/icons/heart-like.svg');
+    icon.setAttribute('alt', 'likes');
     icon.classList.add('media-gallery-item-like-icon');
     icon.setAttribute('role', 'icon');
     icon.setAttribute('aria-label', 'Likes icon');
