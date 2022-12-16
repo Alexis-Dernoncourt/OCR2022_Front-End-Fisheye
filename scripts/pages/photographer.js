@@ -1,19 +1,29 @@
+let photosArrayState = [];
+
 async function init() {
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
+  if (isNaN(id)) {
+    window.location = '/';
+  }
   await getPhotographer(id)
     .then(async (data) => {
       const photosOfUser = await getPhotographerGallery(id);
-      const totalLikes = getTotalLikes(photosOfUser);
+      photosArrayState = photosOfUser;
+      const totalLikes = getTotalLikes(photosArrayState);
       const { price } = photographerFactory(data);
       displayPhotographerData(data);
-      displayPhotographerGallery(photosOfUser);
-      showVideosControls();
+      displayPhotographerGallery(photosArrayState);
       showTotalLikesAndPriceFactory({ totalLikes, price });
       showSelectInputForm();
       getSelectFilter();
+      showGalleryModal();
+      likeHandler(photosArrayState);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      window.location = '/'; //redirect to home if error and/or id is unknown
+    });
 }
 
 async function getPhotographer(id) {
@@ -50,18 +60,6 @@ function displayPhotographerGallery(medias) {
     const mediaDOM = mediaFactory(item);
     const userMediaDOM = mediaDOM.getMediaTypeDOM();
     photographerGallerySection.append(userMediaDOM);
-  });
-}
-
-function showVideosControls() {
-  const video = document.querySelectorAll('.video');
-  video.forEach((item) => {
-    item.addEventListener('mouseover', () => {
-      item.setAttribute('controls', 'true');
-    });
-    item.addEventListener('mouseleave', () => {
-      item.removeAttribute('controls');
-    });
   });
 }
 
@@ -111,13 +109,13 @@ function getSelectFilter() {
     const id = parseInt(params.get('id'));
 
     try {
-      const photosOfUser = await getPhotographerGallery(id);
-      const filteredGallery = sortPhotographerGallery(e.target.value, photosOfUser);
+      const filteredGallery = sortPhotographerGallery(e.target.value, photosArrayState);
       displayPhotographerGallery(filteredGallery);
+      showGalleryModal(filteredGallery);
+      likeHandler(filteredGallery);
     } catch (error) {
       console.log(error);
     }
-    showVideosControls();
   });
 }
 

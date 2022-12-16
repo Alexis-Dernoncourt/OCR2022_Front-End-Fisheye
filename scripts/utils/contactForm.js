@@ -54,7 +54,7 @@ function closeModalRequest() {
 function keepFocusOnModal() {
   document.addEventListener('keydown', (e) => {
     const modalDiv = document.querySelector('.modal');
-    const modalFocusableElements = modalDiv.querySelectorAll('button, input, textarea');
+    const modalFocusableElements = modalDiv.querySelectorAll('button:not([disabled]), input, textarea');
     const firstElement = modalFocusableElements[0];
     const lastElement = modalFocusableElements[modalFocusableElements.length - 1];
 
@@ -68,12 +68,16 @@ function keepFocusOnModal() {
     }
 
     if (e.key === 'Tab') {
-      if (e.target.outerHTML === firstElement.outerHTML && document.activeElement.outerHTML === firstElement.outerHTML) {
-        modalFocusableElements[1].focus();
-        e.preventDefault();
-      } else if (e.target.outerHTML === lastElement.outerHTML) {
-        firstElement.focus();
-        e.preventDefault();
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
       }
     }
   });

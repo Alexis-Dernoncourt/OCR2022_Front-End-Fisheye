@@ -52,8 +52,7 @@ function photographerFactory(data) {
   function getUserPictureDOM() {
     const img = document.createElement('img');
     img.setAttribute('src', picture);
-    img.setAttribute('alt', `${name}, photographe à ${city}, ${country}.`);
-    img.setAttribute('aria-label', `Photo de ${name}, photographe à ${city}, ${country}.`);
+    img.setAttribute('alt', `${name}`);
     return img;
   }
 
@@ -65,20 +64,22 @@ function mediaFactory(data) {
   const firstName = firstNameDiv.dataset.firstname;
 
   function getMediaTypeDOM() {
+    const article = document.createElement('article');
+    article.setAttribute('tabindex', '1');
+    const div = document.createElement('div');
+    div.classList.add('media-gallery-item-infos-container');
+    const title = document.createElement('h2');
+    const p = document.createElement('p');
+    const icon = document.createElement('img');
+    icon.setAttribute('src', 'assets/icons/heart-like.svg');
+    icon.setAttribute('alt', 'likes');
+    icon.classList.add('media-gallery-item-like-icon');
+    icon.setAttribute('role', 'icon');
+    icon.setAttribute('aria-label', 'Likes icon');
+    icon.setAttribute('aria-hidden', 'true');
     if (data.image) {
-      const article = document.createElement('article');
-      article.setAttribute('tabindex', '1');
-      const div = document.createElement('div');
-      div.classList.add('media-gallery-item-infos-container');
-      const title = document.createElement('h2');
       title.textContent = data.title;
-      const p = document.createElement('p');
-      const icon = document.createElement('img');
-      icon.setAttribute('src', 'assets/icons/heart-like.svg');
-      icon.classList.add('media-gallery-item-like-icon');
-      icon.setAttribute('role', 'icon');
-      icon.setAttribute('aria-label', 'Likes icon');
-      icon.setAttribute('aria-hidden', 'true');
+      icon.dataset.id = data.id;
       p.textContent = `${data.likes}`;
       p.append(icon);
       div.append(title, p);
@@ -88,25 +89,15 @@ function mediaFactory(data) {
       img.setAttribute('loading', 'lazy');
       img.classList.add('media-gallery-item');
       img.setAttribute('aria-label', `${data.title}`);
+      img.dataset.id = data.id;
       article.appendChild(img);
       article.appendChild(div);
 
       return article;
     }
     if (data.video) {
-      const article = document.createElement('article');
-      article.setAttribute('tabindex', '1');
-      const div = document.createElement('div');
-      div.classList.add('media-gallery-item-infos-container');
-      const title = document.createElement('h2');
       title.textContent = data.title;
-      const p = document.createElement('p');
-      const icon = document.createElement('img');
-      icon.setAttribute('src', 'assets/icons/heart-like.svg');
-      icon.classList.add('media-gallery-item-like-icon');
-      icon.setAttribute('role', 'icon');
-      icon.setAttribute('aria-label', 'Likes icon');
-      icon.setAttribute('aria-hidden', 'true');
+      icon.dataset.id = data.id;
       p.textContent = `${data.likes}`;
       p.append(icon);
       div.append(title, p);
@@ -114,9 +105,10 @@ function mediaFactory(data) {
       const source = document.createElement('source');
       source.setAttribute('src', `assets/medias/${firstName}/${data.video}`);
       source.setAttribute('type', `video/${data.video.split('.')[1]}`);
-      video.setAttribute('alt', `assets/medias/${firstName}/${data.title}`);
+      video.setAttribute('alt', `${data.title}`);
       video.classList.add('media-gallery-item', 'video');
       video.setAttribute('aria-label', data.title);
+      video.dataset.id = data.id;
       video.appendChild(source);
       article.appendChild(video);
       article.appendChild(div);
