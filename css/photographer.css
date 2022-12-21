@@ -140,6 +140,11 @@ html {
   margin-left: 0.4rem;
 }
 
+.media-gallery-item-like-icon[data-liked='true'] {
+  -webkit-filter: drop-shadow(0 0 3px rgb(255, 0, 191));
+          filter: drop-shadow(0 0 3px rgb(255, 0, 191));
+}
+
 .media-gallery-item {
   width: 100%;
   height: 100%;

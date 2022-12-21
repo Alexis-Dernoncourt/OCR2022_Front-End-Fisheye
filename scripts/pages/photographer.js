@@ -13,11 +13,12 @@ async function init() {
       const totalLikes = getTotalLikes(photosArrayState);
       const { price } = photographerFactory(data);
       displayPhotographerData(data);
-      displayPhotographerGallery(photosArrayState);
+      const filteredGalleryToDisplay = sortPhotographerGallery('Popularité', photosArrayState);
+      displayPhotographerGallery(filteredGalleryToDisplay);
       showTotalLikesAndPriceFactory({ totalLikes, price });
       showSelectInputForm();
       getSelectFilter();
-      showGalleryModal();
+      showGalleryModal(photosArrayState.photosOfUser);
       likeHandler(photosArrayState);
     })
     .catch((err) => {
