@@ -43,6 +43,7 @@ function galleryFactory(imageObject) {
       image.classList.add('gallery-image');
       image.setAttribute('src', `assets/medias/${name}/${imageObject.image}`);
       image.setAttribute('alt', imageObject.title);
+      title.classList.add('galery-item-title-img');
     }
     title.textContent = imageObject.title;
     title.classList.add('galery-item-title');

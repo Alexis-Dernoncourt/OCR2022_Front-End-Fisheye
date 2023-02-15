@@ -92,6 +92,7 @@ function getContainerDOMGallery(arrayOfUserPhotos, selectedId) {
 }
 
 function getMediaToShowInGallery(arrayOfUserPhotos, selectedId) {
+  const divContainer = document.createElement('div');
   const imageContainer = document.querySelector('.galery-image-container');
   const { galleryContent } = findImageById(arrayOfUserPhotos, selectedId);
   const currentImageID = arrayOfUserPhotos.findIndex((_, i) => i == selectedId);
@@ -100,7 +101,9 @@ function getMediaToShowInGallery(arrayOfUserPhotos, selectedId) {
   if (galleryContent.isVideo) {
     imageContainer.append(galleryContent.video);
   } else {
-    imageContainer.append(galleryContent.image);
+    divContainer.classList.add('galery-image-div');
+    divContainer.appendChild(galleryContent.image);
+    imageContainer.append(divContainer);
   }
 
   imageContainer.append(galleryContent.title);
