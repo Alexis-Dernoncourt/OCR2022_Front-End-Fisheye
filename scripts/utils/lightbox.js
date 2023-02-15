@@ -1,4 +1,7 @@
 async function displayGallery(e, photosArrayState) {
+  if (e.nodeName === 'OPTION') {
+    return;
+  }
   const params = new URL(document.location).searchParams;
   const id = parseInt(params.get('id'));
   const gallery = document.getElementById('lightbox_modal');
