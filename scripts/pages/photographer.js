@@ -112,7 +112,6 @@ function getSelectFilter() {
     try {
       const filteredGallery = sortPhotographerGallery(e.target.value, photosArrayState);
       displayPhotographerGallery(filteredGallery);
-      showGalleryModal(filteredGallery);
       likeHandler(filteredGallery);
     } catch (error) {
       console.log(error);
