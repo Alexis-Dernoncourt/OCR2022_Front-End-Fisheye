@@ -106,13 +106,11 @@ function sortPhotographerGallery(filter, medias) {
 function getSelectFilter() {
   const selectInput = document.querySelector('#select-input');
   selectInput.addEventListener('change', async (e) => {
-    const params = new URL(document.location).searchParams;
-    const id = parseInt(params.get('id'));
-
     try {
       const filteredGallery = sortPhotographerGallery(e.target.value, photosArrayState);
       displayPhotographerGallery(filteredGallery);
       likeHandler(filteredGallery);
+      showGalleryModal(filteredGallery);
     } catch (error) {
       console.log(error);
     }

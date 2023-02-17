@@ -32,7 +32,7 @@ async function displayGallery(e, photosArrayState) {
 function showGalleryModal(arr = null) {
   const galleryContent = document.querySelectorAll('.media-gallery-item');
   document.addEventListener('keydown', async (e) => {
-    if (e.key === ' ' || e.key === 'Enter') {
+    if ((e.key === ' ' || e.key === 'Enter') && e.target.nodeName !== 'SELECT') {
       try {
         await displayGallery(e.target.firstChild, arr);
       } catch (error) {
@@ -47,20 +47,27 @@ function showGalleryModal(arr = null) {
 
 function closeGallery() {
   const domElement = document.getElementById('lightbox-medias-content');
+  const currentId = document.querySelector('.galery-content-container')?.dataset?.imageId;
   const gallery = document.getElementById('lightbox_modal');
   const mainElement = document.querySelector('#main');
-  // récupérer le dernier élément visité pour focus
   document.querySelector('body').style.overflowY = '';
   mainElement.setAttribute('aria-hidden', 'false');
   mainElement.setAttribute('aria-hidden', 'true');
   gallery.style.display = 'none';
   domElement.innerHTML = '';
-  // dernier-élément-visité.focus();
+
+  // récupére le dernier élément visité pour focus
+  const elementsId = document.querySelectorAll('.photograph-gallery article .media-gallery-item');
+  elementsId.forEach((e) => {
+    if (currentId && e.dataset.id === currentId) {
+      e.parentElement.focus();
+    }
+  });
 }
 
 function getMediasGallery(photos, photoId) {
   const photoIdInGallery = photos.findIndex((el) => el.id == photoId);
-  getContainerDOMGallery(photos, photoIdInGallery);
+  getContainerDOMGallery(photos, photoIdInGallery, photoId);
   getMediaToShowInGallery(photos, photoIdInGallery);
 }
 
@@ -71,13 +78,14 @@ function findImageById(arrayOfUserPhotos, selectedId) {
   return { galleryContent };
 }
 
-function getContainerDOMGallery(arrayOfUserPhotos, selectedId) {
+function getContainerDOMGallery(arrayOfUserPhotos, selectedId, photoId) {
   const domElement = document.getElementById('lightbox-medias-content');
-  domElement.classList.add('lightbox-content');
+  domElement.innerHTML = '';
   const { galleryContent } = findImageById(arrayOfUserPhotos, selectedId);
   const divContentContainer = document.createElement('div');
   const divImageContainer = document.createElement('div');
   divContentContainer.classList.add('galery-content-container');
+  divContentContainer.dataset.imageId = photoId;
   divImageContainer.classList.add('galery-image-container');
   divContentContainer.append(galleryContent.prevBtn);
   divContentContainer.append(galleryContent.nextBtn);
