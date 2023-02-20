@@ -33,10 +33,14 @@ function showGalleryModal(arr = null) {
   const galleryContent = document.querySelectorAll('.media-gallery-item');
   document.addEventListener('keydown', async (e) => {
     if ((e.key === ' ' || e.key === 'Enter') && e.target.nodeName !== 'SELECT') {
-      try {
-        await displayGallery(e.target.firstChild, arr);
-      } catch (error) {
-        console.info(error);
+      if (e.target.nodeName === 'VIDEO') {
+        return;
+      } else {
+        try {
+          await displayGallery(e.target.firstChild, arr);
+        } catch (error) {
+          console.info(error);
+        }
       }
     }
   });
