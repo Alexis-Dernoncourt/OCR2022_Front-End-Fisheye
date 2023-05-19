@@ -1,7 +1,18 @@
+/* eslint-disable no-unused-vars */
+
+/**
+ * Factory function pour la gestion des datas d'un photographe. 
+ * @param {object} data 
+ * @returns 
+ */
 function photographerFactory(data) {
   const { id, city, country, name, portrait, price, tagline } = data;
   const picture = `assets/photographers/${portrait}`;
 
+  /**
+   * Fonction générale utilitaire pour créer les éléments dom et récupérer les informations d'un photographe.
+   * @returns 
+   */
   function getUserCardDOM() {
     const article = document.createElement('article');
     article.setAttribute('aria-label', `Carte de présentation du photographe ${name}.`);
@@ -9,7 +20,7 @@ function photographerFactory(data) {
     cardLink.setAttribute('href', `photographer.html?id=${id}`);
     cardLink.classList.add('home-card-link-photographer');
     cardLink.setAttribute('aria-label', `Cliquer pour visiter la page dédiée au photographe ${name}.`);
-    cardLink.setAttribute('tabindex', '1');
+    cardLink.setAttribute('tabindex', '0');
     const img = document.createElement('img');
     img.setAttribute('src', picture);
     img.setAttribute('alt', `${name}, photographe à ${city}, ${country}.`);
@@ -31,6 +42,10 @@ function photographerFactory(data) {
     return article;
   }
 
+  /**
+   * Fonction utilisée pour créer les éléments dom et récupérer les informations d'un photographe en fonction de son id.
+   * @returns 
+   */
   function getUserByIdCardDOM() {
     const div = document.createElement('div');
     div.setAttribute('aria-label', `Informations du photographe: ${name}`);
@@ -49,6 +64,10 @@ function photographerFactory(data) {
     return div;
   }
 
+  /**
+   * Créé et retourne l'élément dom pour affichage de la photo du profil d'un photographe.
+   * @returns 
+   */
   function getUserPictureDOM() {
     const img = document.createElement('img');
     img.setAttribute('src', picture);
@@ -59,13 +78,22 @@ function photographerFactory(data) {
   return { name, picture, price, getUserCardDOM, getUserByIdCardDOM, getUserPictureDOM };
 }
 
+/**
+ * Factory function liée à la gestion des médias d'un photographe.
+ * @param {object} data 
+ * @returns 
+ */
 function mediaFactory(data) {
   const firstNameDiv = document.querySelector('.photograph-header-infos');
   const firstName = firstNameDiv.dataset.firstname;
 
+  /**
+   * Fonction utilitaire liée à la récupération du type de média à afficher (image ou vidéo).
+   * @returns 
+   */
   function getMediaTypeDOM() {
     const article = document.createElement('article');
-    article.setAttribute('tabindex', '1');
+    article.setAttribute('tabindex', '0');
     const div = document.createElement('div');
     div.classList.add('media-gallery-item-infos-container');
     const title = document.createElement('h2');
@@ -77,6 +105,7 @@ function mediaFactory(data) {
     icon.setAttribute('role', 'icon');
     icon.setAttribute('aria-label', 'Likes icon');
     icon.setAttribute('aria-hidden', 'true');
+    icon.setAttribute('tabindex', '0');
     if (data.image) {
       title.textContent = data.title;
       icon.dataset.id = data.id;
@@ -89,6 +118,7 @@ function mediaFactory(data) {
       img.setAttribute('loading', 'lazy');
       img.classList.add('media-gallery-item');
       img.setAttribute('aria-label', `${data.title}`);
+      img.setAttribute('tabindex', '-1');
       img.dataset.id = data.id;
       article.appendChild(img);
       article.appendChild(div);
@@ -108,6 +138,7 @@ function mediaFactory(data) {
       video.setAttribute('alt', `${data.title}`);
       video.classList.add('media-gallery-item', 'video');
       video.setAttribute('aria-label', data.title);
+      video.setAttribute('tabindex', '-1');
       video.dataset.id = data.id;
       video.appendChild(source);
       article.appendChild(video);
@@ -120,7 +151,15 @@ function mediaFactory(data) {
   return { getMediaTypeDOM };
 }
 
+/**
+ * Factory function pour récupérer des informations supplémentaires d'un photographe en vue de les afficher au sein du dom.
+ * @returns 
+ */
 function showPhotographerExtraInfosFactory() {
+  /**
+   * Gestion de la création de l'élément select pour tri de la gallerie.
+   * @returns 
+   */
   function getSelectItemDOM() {
     const section = document.createElement('section');
     const form = document.createElement('form');
@@ -134,7 +173,7 @@ function showPhotographerExtraInfosFactory() {
     const selectInput = document.createElement('select');
     selectInput.setAttribute('name', 'select-input');
     selectInput.setAttribute('id', 'select-input');
-    selectInput.setAttribute('tabindex', '1');
+    selectInput.setAttribute('tabindex', '0');
     const selectOption1 = document.createElement('option');
     const selectOption2 = document.createElement('option');
     const selectOption3 = document.createElement('option');
@@ -155,6 +194,11 @@ function showPhotographerExtraInfosFactory() {
     return section;
   }
 
+  /**
+   * Récupère le total des likes et le prix afin de créer le dom associé aux éléments.
+   * @param {*} data 
+   * @returns 
+   */
   function getTotalLikesAndPriceDOM(data) {
     const { totalLikes, price } = data;
 

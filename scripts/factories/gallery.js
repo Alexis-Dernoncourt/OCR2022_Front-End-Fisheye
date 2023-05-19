@@ -1,3 +1,10 @@
+/* eslint-disable no-unused-vars */
+
+/**
+ * Factory function: création des éléments dom de la galerie d'un photographe.
+ * @param imageObject
+ * @returns
+ */
 function galleryFactory(imageObject) {
   function getGalleryDOM() {
     const name = document.querySelector('.photograph-header-infos').dataset.firstname;

@@ -1,7 +1,12 @@
-// Reusable function for fetching photographers data
+/* eslint-disable no-unused-vars */
+
+/**
+ * Fonction utilitaire de récupération des données de tous les photographes.
+ * @returns
+ */
 async function getPhotographers() {
   try {
-    const data = await fetch("./data/photographers.json");
+    const data = await fetch('./data/photographers.json');
     if (!data.ok) {
       throw new Error(`code ${data.status}: ${data.statusText}`);
     }

@@ -1,0 +1,22 @@
+{
+  "name": "ocr2022_front-end-fisheye",
+  "version": "1.0.0",
+  "description": "OCR project - Fisheye.",
+  "main": "index.html",
+  "scripts": {
+    "lint": "eslint --ext .js scripts/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexis-Dernoncourt/OCR2022_Front-End-Fisheye.git"
+  },
+  "author": "Alexis D.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexis-Dernoncourt/OCR2022_Front-End-Fisheye/issues"
+  },
+  "homepage": "https://github.com/Alexis-Dernoncourt/OCR2022_Front-End-Fisheye#readme",
+  "devDependencies": {
+    "eslint": "^8.35.0"
+  }
+}
