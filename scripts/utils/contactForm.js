@@ -187,9 +187,10 @@ function checkValidationFormOnSubmit(e) {
   if (lastName.value && firstName.value && email.value && message.value) {
     if (formIsValid.lastNameIsValid && formIsValid.firstNameIsValid && formIsValid.emailIsValid && formIsValid.messageIsValid) {
       console.table({ LASTNAME: lastName.value, FIRSTNAME: firstName.value, EMAIL: email.value, MESSAGE: message.value });
+      const firstNameValue = firstName.value;
       document.querySelector('#contact-form').reset();
       closeModalRequest();
-      alert(`Merci ${firstName.value}, votre message a bien été envoyé !`);
+      alert(`Merci ${firstNameValue}, votre message a bien été envoyé !`);
     }
   }
 }
